@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>809bd2c2-75c8-40a9-8df1-dc1f3a8dc45e</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZwinnyCRUD.Common\ZwinnyCRUD.Common.csproj" />
+  </ItemGroup>
+
+</Project>
