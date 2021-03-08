@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ZwinnyCRUD.Cloud.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -29,6 +30,9 @@ namespace ZwinnyCRUD.Cloud
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
