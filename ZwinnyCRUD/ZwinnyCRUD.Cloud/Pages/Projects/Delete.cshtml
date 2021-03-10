@@ -1,0 +1,42 @@
+﻿@page
+@model ZwinnyCRUD.Cloud.Pages.Projects.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Usuń</h1>
+
+<h3>Na pewno chcesz usunąć ten projekt?</h3>
+<div>
+    <h4>Projekt</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Project.CreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Project.CreationDate)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Project.Id" />
+        <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="csrf_token" value="" />
+        <input type="submit" value="Usuń" class="btn btn-danger" /> |
+        <a asp-page="./Index">Wróć do listy</a>
+    </form>
+</div>
