@@ -2,13 +2,13 @@
 @model ZwinnyCRUD.Cloud.Pages.Projects.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Projects";
 }
 
-<h1>Index</h1>
+<h1>Projects</h1>
 
 <p>
-    <a asp-page="Create">Utwórz nowy projekt</a>
+    <a asp-page="Create">Create a new project</a>
 </p>
 <table class="table">
     <thead>
@@ -38,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edytuj</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Szczegóły</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Usuń</a>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

@@ -5,11 +5,11 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Usuń</h1>
+<h1>Delete</h1>
 
-<h3>Na pewno chcesz usunąć ten projekt?</h3>
+<h3>Are you sure you want to delete this project?</h3>
 <div>
-    <h4>Projekt</h4>
+    <h4>Project</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -36,7 +36,7 @@
         <input type="hidden" asp-for="Project.Id" />
         <input type="hidden" name="_method" value="delete" />
         <input type="hidden" name="csrf_token" value="" />
-        <input type="submit" value="Usuń" class="btn btn-danger" /> |
-        <a asp-page="./Index">Wróć do listy</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to the list</a>
     </form>
 </div>
