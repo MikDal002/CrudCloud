@@ -14,7 +14,6 @@ namespace ZwinnyCRUD.Cloud.Data
                 serviceProvider.GetRequiredService<
                     DbContextOptions<ZwinnyCRUDCloudContext>>()))
             {
-                // Look for any movies.
                 if (context.Project.Any())
                 {
                     return;   // DB has been seeded
