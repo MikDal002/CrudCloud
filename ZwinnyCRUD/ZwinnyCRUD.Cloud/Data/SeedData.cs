@@ -14,6 +14,8 @@ namespace ZwinnyCRUD.Cloud.Data
                 serviceProvider.GetRequiredService<
                     DbContextOptions<ZwinnyCRUDCloudContext>>()))
             {
+
+                context.Database.Migrate();
                 if (context.Project.Any())
                 {
                     return;   // DB has been seeded
