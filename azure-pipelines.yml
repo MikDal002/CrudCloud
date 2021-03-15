@@ -1,0 +1,40 @@
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: buildCloud
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: BuildCommon
+      inputs:
+        command: build
+        projects: '**/*Common.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      displayName: BuildCloud
+      inputs:
+        command: build
+        projects: '**/*Cloud.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+  - job: buildMobile
+    pool:
+      vmImage: 'macos-latest'
+    variables: 
+      outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '**/*.sln'
+
+    - task: XamarinAndroid@1
+      inputs:
+        projectFile: '**/*droid*.csproj'
+        outputDirectory: '$(outputDirectory)'
+        configuration: '$(buildConfiguration)'
