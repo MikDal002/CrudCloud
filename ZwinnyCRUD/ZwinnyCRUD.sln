@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZwinnyCRUD.Mobile", "Zwinny
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZwinnyCRUD.Cloud", "ZwinnyCRUD.Cloud\ZwinnyCRUD.Cloud.csproj", "{65BF685B-A18D-4EF2-8BAB-B1A738069C4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZwinnyCRUD.Cloud.Tests", "ZwinnyCRUD.Cloud.Tests\ZwinnyCRUD.Cloud.Tests.csproj", "{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{65BF685B-A18D-4EF2-8BAB-B1A738069C4F}.Release|iPhone.Build.0 = Release|Any CPU
 		{65BF685B-A18D-4EF2-8BAB-B1A738069C4F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{65BF685B-A18D-4EF2-8BAB-B1A738069C4F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Release|iPhone.Build.0 = Release|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

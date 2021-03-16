@@ -10,17 +10,34 @@ stages:
       vmImage: 'windows-latest'
     steps:
     - task: DotNetCoreCLI@2
-      displayName: BuildCommon
+      displayName: Build Common
       inputs:
         command: build
-        projects: '**/*Common.csproj'
+        projects: '**/*.Common.csproj'
         arguments: '--configuration $(buildConfiguration)'
+
     - task: DotNetCoreCLI@2
-      displayName: BuildCloud
+      displayName: Build Cloud
       inputs:
         command: build
-        projects: '**/*Cloud.csproj'
+        projects: '**/*.Cloud.csproj'
         arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: Build Cloud Tests
+      inputs:
+        command: build
+        projects: '**/*.Cloud.Tests.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Cloud unit tests - $(buildConfiguration)'
+      inputs:
+        command: 'test'
+        arguments: '--no-build --configuration $(buildConfiguration)'
+        publishTestResults: true
+        projects: '**/*.Cloud.Tests.csproj'
+
   - job: buildMobile
     pool:
       vmImage: 'macos-latest'
