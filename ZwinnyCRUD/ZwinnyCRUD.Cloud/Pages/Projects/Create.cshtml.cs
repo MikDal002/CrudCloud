@@ -35,7 +35,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
             {
                 return Page();
             }
-
+            Project.CreationDate = DateTime.Now;
             _context.Project.Add(Project);
             await _context.SaveChangesAsync();
 
