@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using ZwinnyCRUD.Cloud.Data;
+using NLog.Web;
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -15,6 +16,8 @@ namespace ZwinnyCRUD.Cloud
     {
         public static void Main(string[] args)
         {
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
@@ -27,10 +30,13 @@ namespace ZwinnyCRUD.Cloud
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
+                    logger.Error(ex, "An error occurred seeding the DB.");
                 }
             }
+
+            logger.Debug("Debug test");
+            logger.Warn("Warn test");
+            logger.Error("Error test");
 
             host.Run();
         }
@@ -40,6 +46,12 @@ namespace ZwinnyCRUD.Cloud
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
     }
 }

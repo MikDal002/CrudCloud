@@ -10,6 +10,13 @@ stages:
       vmImage: 'windows-latest'
     steps:
     - task: DotNetCoreCLI@2
+      displayName: Dotnet restore
+      inputs:
+        command: restore
+        projects: '**/*.csproj'
+        includeNuGetOrg: true
+
+    - task: DotNetCoreCLI@2
       displayName: Build Common
       inputs:
         command: build
