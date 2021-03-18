@@ -20,10 +20,18 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
         }
 
         public IList<Project> Project { get;set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
 
         public async Task OnGetAsync()
         {
-            Project = await _context.Project.ToListAsync();
+            var projects = from n in _context.Project
+                           select n;
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                projects = projects.Where(m => (m.Title.Contains(SearchString) || m.Description.Contains(SearchString)));
+            }
+            Project = await projects.ToListAsync();
         }
     }
 }
