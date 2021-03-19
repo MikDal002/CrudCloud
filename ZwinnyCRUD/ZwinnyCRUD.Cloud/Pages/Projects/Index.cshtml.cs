@@ -20,6 +20,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
         }
 
         public IList<Project> Project { get;set; }
+        
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
