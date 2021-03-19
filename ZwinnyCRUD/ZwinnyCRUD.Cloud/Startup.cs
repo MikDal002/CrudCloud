@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Hubs;
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -26,6 +27,7 @@ namespace ZwinnyCRUD.Cloud
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSignalR();
 
             services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")));
@@ -55,6 +57,7 @@ namespace ZwinnyCRUD.Cloud
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapHub<MessageHub>($"/{nameof(MessageHub)}");
             });
         }
     }
