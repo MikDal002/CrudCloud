@@ -1,0 +1,61 @@
+﻿@page
+@model ZwinnyCRUD.Cloud.Pages.Projects.ProjectFilesModel
+@{
+    ViewData["Title"] = "Files";
+}
+
+<h1>Files</h1>
+
+@if (Model.DatabaseFiles.Count == 0)
+{
+    <p>
+        No files are available.
+    </p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.DatabaseFiles[0].Name) /
+                    @Html.DisplayNameFor(model => model.DatabaseFiles[0].Note)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatabaseFiles[0].UploadDT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DatabaseFiles[0].Size)
+                </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var file in Model.DatabaseFiles)
+            {
+            <tr>
+                <td>
+                    <b>@file.Name</b><br>
+                    @Html.DisplayFor(modelItem => file.Note)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => file.UploadDT)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => file.Size)
+                </td>
+                <td class="text-center">
+                    <a asp-page-handler="Download" asp-route-id="@file.Id">Download</a> |
+                </td>
+                <td>
+                    <a asp-page="./DeleteFile" asp-route-id="@file.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+<div>
+    <a asp-page="./Upload" asp-route-id="@Model.Project.Id">Upload</a>
+</div>
