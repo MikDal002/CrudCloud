@@ -19,12 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Task.ProjectId" class="control-label"></label>
-                <select asp-for="Task.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+                <select asp-for="Task.ProjectId" class ="form-control" asp-items="ViewBag.ProjectId"></select>
             </div>
-
-            <input type="hidden" name="_method" value="post" />
-            <input type="hidden" name="csrf_token" value="" />
-
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

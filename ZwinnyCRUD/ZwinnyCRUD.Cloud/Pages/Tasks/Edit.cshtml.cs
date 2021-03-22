@@ -30,7 +30,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
                 return NotFound();
             }
 
-            Task = await _context.Tasks
+            Task = await _context.Task
                 .Include(t => t.Project).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Task == null)
@@ -73,7 +73,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
 
         private bool TaskExists(int id)
         {
-            return _context.Tasks.Any(e => e.Id == id);
+            return _context.Task.Any(e => e.Id == id);
         }
     }
 }

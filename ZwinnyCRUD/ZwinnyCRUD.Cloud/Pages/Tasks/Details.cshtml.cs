@@ -20,7 +20,6 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
         }
 
         public Common.Models.Task Task { get; set; }
-        public Project Project { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,10 +28,8 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
                 return NotFound();
             }
 
-            Task = await _context.Tasks
+            Task = await _context.Task
                 .Include(t => t.Project).FirstOrDefaultAsync(m => m.Id == id);
-
-            Project = await _context.Project.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Task == null)
             {

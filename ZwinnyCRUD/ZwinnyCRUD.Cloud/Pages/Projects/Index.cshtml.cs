@@ -24,7 +24,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
-        public async Task OnGetAsync()
+        public async System.Threading.Tasks.Task OnGetAsync()
         {
             var projects = from n in _context.Project
                            select n;

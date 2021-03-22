@@ -23,7 +23,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
 
         public async System.Threading.Tasks.Task OnGetAsync()
         {
-            Task = await _context.Tasks
+            Task = await _context.Task
                 .Include(t => t.Project).ToListAsync();
         }
     }

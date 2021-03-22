@@ -20,5 +20,7 @@ namespace ZwinnyCRUD.Common.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTimeOffset CreationDate {get; set;}
+
+        public List<Task> Tasks { get; set; }
     }
 }

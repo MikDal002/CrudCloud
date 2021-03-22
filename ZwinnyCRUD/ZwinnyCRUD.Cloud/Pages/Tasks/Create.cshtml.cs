@@ -37,7 +37,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
                 return Page();
             }
 
-            _context.Tasks.Add(Task);
+            _context.Task.Add(Task);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -10,8 +10,8 @@ using ZwinnyCRUD.Cloud.Data;
 namespace ZwinnyCRUD.Cloud.Migrations
 {
     [DbContext(typeof(ZwinnyCRUDCloudContext))]
-    [Migration("20201124185043_Task")]
-    partial class Task
+    [Migration("20201128112054_Tasks")]
+    partial class Tasks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,9 +53,6 @@ namespace ZwinnyCRUD.Cloud.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
@@ -73,7 +70,7 @@ namespace ZwinnyCRUD.Cloud.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Task");
                 });
 
             modelBuilder.Entity("ZwinnyCRUD.Common.Models.Task", b =>
