@@ -22,7 +22,5 @@ namespace ZwinnyCRUD.Common.Models
         public DateTimeOffset CreationDate {get; set;}
 
         public List<Task> Tasks { get; set; }
-
-        public virtual IList<File> Files { get; set; }
     }
 }

@@ -16,6 +16,5 @@ namespace ZwinnyCRUD.Cloud.Data
 
         public DbSet<ZwinnyCRUD.Common.Models.Project> Project { get; set; }
         public DbSet<ZwinnyCRUD.Common.Models.Task> Task { get; set; }
-        public DbSet<ZwinnyCRUD.Common.Models.File> File { get; set; }
     }
 }

@@ -11,8 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
 using ZwinnyCRUD.Cloud.Hubs;
-using Microsoft.Extensions.FileProviders;
-
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -33,11 +31,6 @@ namespace ZwinnyCRUD.Cloud
 
             services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")));
-
-            var physicalProvider = new PhysicalFileProvider(Configuration.GetValue<string>("StoredFilesPath"));
-
-            services.AddSingleton<IFileProvider>(physicalProvider);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

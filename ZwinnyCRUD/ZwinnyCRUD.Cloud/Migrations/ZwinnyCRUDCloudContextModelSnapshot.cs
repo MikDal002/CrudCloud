@@ -19,38 +19,6 @@ namespace ZwinnyCRUD.Cloud.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ZwinnyCRUD.Common.Models.File", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UploadDT")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("File");
-                });
-
             modelBuilder.Entity("ZwinnyCRUD.Common.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -101,15 +69,6 @@ namespace ZwinnyCRUD.Cloud.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Task");
-                });
-
-            modelBuilder.Entity("ZwinnyCRUD.Common.Models.File", b =>
-                {
-                    b.HasOne("ZwinnyCRUD.Common.Models.Project", "Project")
-                        .WithMany("Files")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ZwinnyCRUD.Common.Models.Task", b =>
