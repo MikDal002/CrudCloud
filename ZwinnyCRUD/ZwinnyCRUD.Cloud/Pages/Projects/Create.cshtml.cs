@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext _context;
+        private readonly IProjectDatabase _context;
 
-        public CreateModel(ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext context)
+        public CreateModel(IProjectDatabase context)
         {
             _context = context;
         }
@@ -36,9 +37,8 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return Page();
             }
             Project.CreationDate = DateTime.Now;
-            _context.Project.Add(Project);
-            await _context.SaveChangesAsync();
-
+            await _context.Add(Project);
+            
             return RedirectToPage("./Index");
         }
     }
