@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Pages.Projects
 {
     public class DeleteModel : PageModel
     {
-        private readonly ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext _context;
+        private readonly IProjectDatabase _context;
 
-        public DeleteModel(ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext context)
+        public DeleteModel(IProjectDatabase context)
         {
             _context = context;
         }
@@ -29,7 +30,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project.FirstOrDefaultAsync(m => m.Id == id);
+            Project = _context.FindOrDefault(id);
 
             if (Project == null)
             {

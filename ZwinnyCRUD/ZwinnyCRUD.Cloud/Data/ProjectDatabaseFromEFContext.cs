@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,12 @@ namespace ZwinnyCRUD.Cloud.Data
             if (project.CreationDate == null) throw new ArgumentOutOfRangeException("Project creation date must be set!");
             _context.Project.Add(project);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Project> FindOrDefault(int id)
+        {
+            var project = await _context.Project.FirstOrDefaultAsync(m => m.Id == id);
+            return project;
         }
     }
 }

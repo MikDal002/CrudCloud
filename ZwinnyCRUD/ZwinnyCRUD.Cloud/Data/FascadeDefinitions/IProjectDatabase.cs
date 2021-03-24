@@ -9,5 +9,6 @@ namespace ZwinnyCRUD.Cloud.Data.FascadeDefinitions
     public interface IProjectDatabase
     {
         Task Add(Project project);
+        Task<Project> FindOrDefault(int id);
     }
 }
