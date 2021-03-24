@@ -24,6 +24,17 @@ namespace ZwinnyCRUD.Cloud.Data
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Project> Delete(int id)
+        {
+            var project = await FindOrDefault(id);
+            if (project == null) return null;
+
+            _context.Project.Remove(project);
+            await _context.SaveChangesAsync();
+
+            return project;
+        }
+
         public async Task<Project> FindOrDefault(int id)
         {
             var project = await _context.Project.FirstOrDefaultAsync(m => m.Id == id);

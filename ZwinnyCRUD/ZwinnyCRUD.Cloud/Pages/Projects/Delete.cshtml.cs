@@ -30,7 +30,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return NotFound();
             }
 
-            Project = _context.FindOrDefault(id);
+            Project = await _context.FindOrDefault(id.Value);
 
             if (Project == null)
             {
@@ -46,13 +46,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project.FindAsync(id);
-
-            if (Project != null)
-            {
-                _context.Project.Remove(Project);
-                await _context.SaveChangesAsync();
-            }
+            Project = await _context.Delete(Project.Id);
 
             return RedirectToPage("./Index");
         }
