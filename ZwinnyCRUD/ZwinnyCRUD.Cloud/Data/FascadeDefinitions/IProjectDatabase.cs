@@ -11,5 +11,7 @@ namespace ZwinnyCRUD.Cloud.Data.FascadeDefinitions
         Task Add(Project project);
         Task<Project> FindOrDefault(int id);
         Task<Project> Delete(int id);
+        Task AddOrUpdate(Project project);
+        Task<IList<Project>> GetAll();
     }
 }

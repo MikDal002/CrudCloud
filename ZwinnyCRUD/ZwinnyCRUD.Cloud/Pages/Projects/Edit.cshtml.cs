@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext _context;
+        private readonly IProjectDatabase _context;
 
-        public EditModel(ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext context)
+        public EditModel(IProjectDatabase context)
         {
             _context = context;
         }
@@ -30,7 +31,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Project.FirstOrDefaultAsync(m => m.Id == id);
+            Project = await _context.FindOrDefault(id.Value);
 
             if (Project == null)
             {
@@ -48,30 +49,9 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return Page();
             }
 
-            _context.Attach(Project).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProjectExists(Project.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.AddOrUpdate(Project);
 
             return RedirectToPage("./Index");
-        }
-
-        private bool ProjectExists(int id)
-        {
-            return _context.Project.Any(e => e.Id == id);
         }
     }
 }
