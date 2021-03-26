@@ -25,10 +25,15 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
 
-        public async System.Threading.Tasks.Task OnGetAsync()
+        public void OnGet()
         {
-        
-           Project = await projects.ToListAsync();
-    }
+            if (string.IsNullOrWhiteSpace(SearchString))
+            {
+                Project = _context.GetAll().ToList();
+            } else
+            {
+                Project = _context.FindAll(m => (m.Title.Contains(SearchString) || m.Description.Contains(SearchString))).ToList();
+            }
+        }
 }
 }

@@ -20,7 +20,7 @@ namespace ZwinnyCRUD.Cloud.Data
             _logger = logger;
         }
 
-        public async Task Add(Project project)
+        public async System.Threading.Tasks.Task Add(Project project)
         {
             if (project.CreationDate == null) throw new ArgumentOutOfRangeException("Project creation date must be set!");
             _context.Project.Add(project);
@@ -44,7 +44,7 @@ namespace ZwinnyCRUD.Cloud.Data
             return project;
         }
 
-        public async Task AddOrUpdate(Project project)
+        public async System.Threading.Tasks.Task AddOrUpdate(Project project)
         {
             try
             {
@@ -70,9 +70,14 @@ namespace ZwinnyCRUD.Cloud.Data
             return _context.Project.Any(e => e.Id == id);
         }
 
-        public async Task<IList<Project>> GetAll()
+        public IEnumerable<Project> GetAll()
         {
-            return await _context.Project.ToListAsync();
+            return _context.Project;
+        }
+
+        public IEnumerable<Project> FindAll(Func<Project, bool> p)
+        {
+            return _context.Project.Where(p);
         }
     }
 }

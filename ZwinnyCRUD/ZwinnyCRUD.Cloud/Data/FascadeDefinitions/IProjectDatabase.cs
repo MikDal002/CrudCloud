@@ -8,10 +8,11 @@ namespace ZwinnyCRUD.Cloud.Data.FascadeDefinitions
 {
     public interface IProjectDatabase
     {
-        Task Add(Project project);
+        System.Threading.Tasks.Task Add(Project project);
         Task<Project> FindOrDefault(int id);
         Task<Project> Delete(int id);
-        Task AddOrUpdate(Project project);
-        Task<IList<Project>> GetAll();
+        System.Threading.Tasks.Task AddOrUpdate(Project project);
+        IEnumerable<Project> GetAll();
+        IEnumerable<Project> FindAll(Func<Project, bool> p);
     }
 }
