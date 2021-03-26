@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Pages.Tasks
 {
     public class IndexModel : PageModel
     {
-        private readonly ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext _context;
+        private readonly ITaskDatabase _context;
 
-        public IndexModel(ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext context)
+        public IndexModel(ITaskDatabase context)
         {
             _context = context;
         }
@@ -23,8 +24,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
 
         public async System.Threading.Tasks.Task OnGetAsync()
         {
-            Task = await _context.Task
-                .Include(t => t.Project).ToListAsync();
+            Task = _context.GetAll().ToList();
         }
     }
 }

@@ -7,17 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Pages.Tasks
 {
     public class EditModel : PageModel
     {
-        private readonly ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext _context;
+        private readonly ITaskDatabase _taskContext;
+        private readonly IProjectDatabase _projectDatabase;
 
-        public EditModel(ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext context)
+        public EditModel(ITaskDatabase context, IProjectDatabase projectDatabase)
         {
-            _context = context;
+            _taskContext = context;
+            _projectDatabase = projectDatabase;
         }
 
         [BindProperty]
@@ -30,14 +33,13 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
                 return NotFound();
             }
 
-            Task = await _context.Task
-                .Include(t => t.Project).FirstOrDefaultAsync(m => m.Id == id);
-
+            Task = await _taskContext.FindOrDefault(id.Value);
+            
             if (Task == null)
             {
                 return NotFound();
             }
-           ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Description");
+           ViewData["ProjectId"] = new SelectList(_projectDatabase.GetAll(), "Id", "Description");
             return Page();
         }
 
@@ -50,30 +52,9 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
                 return Page();
             }
 
-            _context.Attach(Task).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TaskExists(Task.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _taskContext.AddOrUpdate(Task);
 
             return RedirectToPage("./Index");
-        }
-
-        private bool TaskExists(int id)
-        {
-            return _context.Task.Any(e => e.Id == id);
         }
     }
 }

@@ -6,22 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ZwinnyCRUD.Cloud.Data;
+using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Pages.Tasks
 {
     public class CreateModel : PageModel
     {
-        private readonly ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext _context;
+        private readonly ITaskDatabase _taskContext;
+        private readonly IProjectDatabase _projectContext;
 
-        public CreateModel(ZwinnyCRUD.Cloud.Data.ZwinnyCRUDCloudContext context)
+        public CreateModel(ITaskDatabase tasks, IProjectDatabase projects)
         {
-            _context = context;
+            _taskContext = tasks;
+            _projectContext = projects;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["ProjectId"] = new SelectList(_context.Project, "Id", "Description");
+        ViewData["ProjectId"] = new SelectList(_projectContext.GetAll(), "Id", "Description");
             return Page();
         }
 
@@ -37,8 +40,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
                 return Page();
             }
 
-            _context.Task.Add(Task);
-            await _context.SaveChangesAsync();
+            await _taskContext.Add(Task);
 
             return RedirectToPage("./Index");
         }

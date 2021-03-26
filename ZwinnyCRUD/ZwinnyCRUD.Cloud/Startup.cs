@@ -31,8 +31,9 @@ namespace ZwinnyCRUD.Cloud
             services.AddSignalR();
 
             services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")), ServiceLifetime.Transient);
             services.AddTransient<IProjectDatabase, ProjectDatabaseFromEFContext>();
+            services.AddTransient<ITaskDatabase, TaskDatabaseFromEFContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
