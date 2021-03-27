@@ -7,6 +7,12 @@ namespace ZwinnyCRUD.Common.Models
 {
     public class Task
     {
+
+        public Task()
+        {
+            IsDone = false;
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -21,7 +27,10 @@ namespace ZwinnyCRUD.Common.Models
         [DataType(DataType.Date)]
         public DateTimeOffset CreationDate { get; }
 
+        public bool IsDone { get; set; }
+
         public int ProjectId { get; set; }
         public Project Project { get; set; }
+
     }
 }

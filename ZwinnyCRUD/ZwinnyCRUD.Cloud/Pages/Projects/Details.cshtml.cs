@@ -21,7 +21,6 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
         }
 
         public Project Project { get; set; }
-
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -35,6 +34,9 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
             {
                 return NotFound();
             }
+
+           Project.Tasks = _context.Task.Where(e => e.ProjectId == id).ToList();
+
             return Page();
         }
     }

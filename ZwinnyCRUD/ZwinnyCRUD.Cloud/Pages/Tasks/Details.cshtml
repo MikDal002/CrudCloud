@@ -1,8 +1,24 @@
 ﻿@page
 @model ZwinnyCRUD.Cloud.Pages.Tasks.DetailsModel
+@{ 
+    string referer = Request.Headers["Referer"].ToString();
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Projects/Details?id=@Model.Task.ProjectId">@Model.Task.Project.Title</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Html.DisplayFor(model => model.Task.Title)</li>
+    </ol>
+</nav>
+
+<h1>
+    Task
+    <small>
+        <a class="" asp-page="/Tasks/Edit" asp-route-id="@Model.Task.Id"><i class="icon-pencil-1"></i></a><a class="text-danger" asp-page="/Tasks/Delete" asp-route-id="@Model.Task.Id"><i class="icon-cancel"></i></a>
+    </small>
+</h1>
 
 <div>
-    <h4>Task</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -26,6 +42,5 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Task.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a class="" title="back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i></a>
 </div>

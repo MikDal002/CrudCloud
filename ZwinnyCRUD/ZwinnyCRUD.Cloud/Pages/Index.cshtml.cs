@@ -19,7 +19,7 @@ namespace ZwinnyCRUD.Cloud.Pages
 
         public void OnGet()
         {
-
+            
         }
     }
 }

@@ -48,7 +48,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
 
             await _context.Delete(id.Value);
 
-            return RedirectToPage("./Index");
+            return Redirect("/Projects/Details?id=" + Task.ProjectId);
         }
     }
 }

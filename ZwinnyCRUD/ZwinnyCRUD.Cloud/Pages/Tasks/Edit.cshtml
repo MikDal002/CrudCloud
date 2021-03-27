@@ -1,7 +1,19 @@
 ﻿@page
 @model ZwinnyCRUD.Cloud.Pages.Tasks.EditModel
 
-<h4>Task</h4>
+@{
+    string referer = Request.Headers["Referer"].ToString();
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Projects/Details?id=@Model.Task.ProjectId">@Model.Task.Project.Title</a></li>
+        <li class="breadcrumb-item"><a href="/Tasks/Details?id=@Model.Task.Id">@Model.Task.Title</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+</nav>
+
+<h1>Edit</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,13 +37,10 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="" title="back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i></a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

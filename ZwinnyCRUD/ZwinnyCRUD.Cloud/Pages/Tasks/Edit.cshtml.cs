@@ -39,7 +39,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
             {
                 return NotFound();
             }
-           ViewData["ProjectId"] = new SelectList(_projectDatabase.GetAll(), "Id", "Description");
+           ViewData["ProjectId"] = new SelectList(_projectDatabase.GetAll(), "Id", "Title");
             return Page();
         }
 
@@ -54,7 +54,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
 
             await _taskContext.AddOrUpdate(Task);
 
-            return RedirectToPage("./Index");
+            return Redirect("./Details?id=" + Task.Id);
         }
     }
 }

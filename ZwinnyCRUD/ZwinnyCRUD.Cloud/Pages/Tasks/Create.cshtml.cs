@@ -21,10 +21,11 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
             _taskContext = tasks;
             _projectContext = projects;
         }
-
-        public IActionResult OnGet()
+        
+        [HttpGet("id")]
+        public IActionResult OnGet(string Id)
         {
-        ViewData["ProjectId"] = new SelectList(_projectContext.GetAll(), "Id", "Description");
+            ViewData["ProjectId"] = Id;
             return Page();
         }
 
@@ -42,7 +43,7 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
 
             await _taskContext.Add(Task);
 
-            return RedirectToPage("./Index");
+            return Redirect("/Projects/Details?id=" + Task.ProjectId);
         }
     }
 }

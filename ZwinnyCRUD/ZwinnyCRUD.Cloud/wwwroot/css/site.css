@@ -69,3 +69,46 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*
+    Styles
+*/
+h1 {
+    border-left: solid 4px #0275d8;
+    padding: 0;
+    padding-left: 0px;
+    margin: 0;
+    margin-bottom: 0px;
+    line-height: normal;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+h1.header {
+    font-size: 2.5rem !important;
+}
+
+.table td, .table th{
+    vertical-align: middle;
+}
+
+.header-search {
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 small i {
+    font-size: 22px;
+}
+
+input.search {
+    border: 0;
+    border-radius: 0;
+    border-bottom: solid 2px #0275d8;
+}
+
+input.search:focus, input.search:hover, input.search:active {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+}

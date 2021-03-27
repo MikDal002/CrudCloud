@@ -23,5 +23,8 @@
   <ItemGroup>
 	<None Update="nlog.config" CopyToOutputDirectory="Always" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\icon\fontello\" />
+  </ItemGroup>
 
 </Project>
