@@ -28,12 +28,11 @@
                 <span asp-validation-for="Task.Description" class="text-danger"></span>
             </div>
             
-
             <input type="hidden" asp-for="Task.ProjectId" value='@ViewBag.ProjectId'>
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="" title="back" href="@referer"><i class="icon-reply"></i></a>
+                <a class="" title="Back" href="@referer"><i class="icon-reply"></i></a>
             </div>
         </form>
     </div>

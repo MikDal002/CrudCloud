@@ -58,8 +58,8 @@
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </td>
                 <td class="text-right">
-                    <a asp-page="/Projects/Edit" asp-route-id="@item.Id" class='' title="edit project @item.Title"><i class="icon-pencil"></i></a>
-                    <a asp-page="/Projects/Delete" asp-route-id="@item.Id" class='text-danger' title="delete project @item.Title"><i class="icon-cancel"></i></a>
+                    <a asp-page="/Projects/Edit" asp-route-id="@item.Id" class='' title="Edit project @item.Title"><i class="icon-pencil"></i></a>
+                    <a asp-page="/Projects/Delete" asp-route-id="@item.Id" class='text-danger' title="Delete project @item.Title"><i class="icon-cancel"></i></a>
                 </td>
             </tr>
         }

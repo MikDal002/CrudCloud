@@ -15,7 +15,7 @@
 <h1>
     Project 
     <small>
-        <a class="" asp-page="/Projects/Edit" asp-route-id="@Model.Project.Id"><i class="icon-pencil-1"></i></a><a class="text-danger" asp-page="/Projects/Delete" asp-route-id="@Model.Project.Id"><i class="icon-cancel"></i></a>
+        <a class="" title="Edit" asp-page="/Projects/Edit" asp-route-id="@Model.Project.Id"><i class="icon-pencil-1"></i></a><a class="text-danger" title="Delete" asp-page="/Projects/Delete" asp-route-id="@Model.Project.Id"><i class="icon-cancel"></i></a>
     </small>
 </h1>
 
@@ -48,7 +48,7 @@
 <h1>
     Tasks
     <small>
-        <a class="" asp-page="/Tasks/Create" asp-route-id="@Model.Project.Id" title="create new task"><i class="icon-plus"></i></a>
+        <a class="" asp-page="/Tasks/Create" asp-route-id="@Model.Project.Id" title="Create new task"><i class="icon-plus"></i></a>
     </small>    
 </h1>
 
@@ -66,8 +66,8 @@
                     @item.Description
                 </td>
                 <td class="text-right">
-                    <a asp-page="/Tasks/Edit" asp-route-id="@item.Id" class='' title="edit task @item.Title"><i class="icon-pencil"></i></a>
-                    <a asp-page="/Tasks/Delete" asp-route-id="@item.Id" class='text-danger' title="delete task @item.Title"><i class="icon-cancel"></i></a>
+                    <a asp-page="/Tasks/Edit" asp-route-id="@item.Id" class='' title="Edit task @item.Title"><i class="icon-pencil"></i></a>
+                    <a asp-page="/Tasks/Delete" asp-route-id="@item.Id" class='text-danger' title="Delete task @item.Title"><i class="icon-cancel"></i></a>
                 </td>
             </tr>
             }

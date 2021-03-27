@@ -14,7 +14,7 @@
 <h1>
     Task
     <small>
-        <a class="" asp-page="/Tasks/Edit" asp-route-id="@Model.Task.Id"><i class="icon-pencil-1"></i></a><a class="text-danger" asp-page="/Tasks/Delete" asp-route-id="@Model.Task.Id"><i class="icon-cancel"></i></a>
+        <a class="" title="Edit" asp-page="/Tasks/Edit" asp-route-id="@Model.Task.Id"><i class="icon-pencil-1"></i></a><a class="text-danger" title="Delete" asp-page="/Tasks/Delete" asp-route-id="@Model.Task.Id"><i class="icon-cancel"></i></a>
     </small>
 </h1>
 
@@ -42,5 +42,5 @@
     </dl>
 </div>
 <div>
-    <a class="" title="back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i></a>
+    <a class="" title="Back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i></a>
 </div>
