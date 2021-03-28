@@ -28,6 +28,10 @@
     </div>
 </nav>
 
+@if (Model.SearchString != null)
+{
+    <h3>Search results for: <i>"@Html.Raw(Model.SearchString)"</i></h3>
+}
 
 <table class="table table-striped table-hover table-sm">
     <thead>
