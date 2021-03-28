@@ -16,3 +16,23 @@ function UpdateTask(elem) {
         }
     });
 }
+
+$(document).ready(function () {
+    var current_location = location.pathname.split('/')[1];
+
+    var navbars = $('.navbar-collapse ul.navbar-nav').find("a");
+    for (var i = 0; i < navbars.length; i++) {
+        if (navbars[i].text == current_location) {
+            $(navbars[i].closest('li')).addClass('active');
+        }
+        else if (current_location == '' && navbars[i].text == 'Home')
+        {
+            $('.navbar-collapse ul.navbar-nav').children(":first").addClass('active');
+        }
+        else {
+            $(navbars[i].closest('li')).removeClass('active');
+        }
+    }   
+}); 
+    
+ 

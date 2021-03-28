@@ -13,11 +13,13 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
 {
     public class DetailsModel : PageModel
     {
-        private readonly IProjectDatabase _context;
+        private readonly IProjectDatabase _projectContext;
+        private readonly ITaskDatabase _taskContext;
 
-        public DetailsModel(IProjectDatabase context)
+        public DetailsModel(IProjectDatabase projectContext, ITaskDatabase taskContext)
         {
-            _context = context;
+            _projectContext = projectContext;
+            _taskContext = taskContext;
         }
 
         public Project Project { get; set; }
@@ -28,14 +30,15 @@ namespace ZwinnyCRUD.Cloud.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.FindOrDefault(id.Value);
+            Project = await _projectContext.FindOrDefault(id.Value);
 
             if (Project == null)
             {
                 return NotFound();
             }
 
-           Project.Tasks = _context.Task.Where(e => e.ProjectId == id).ToList();
+
+            Project.Tasks = _taskContext.FindAll(e => e.ProjectId == id).ToList();
 
             return Page();
         }

@@ -27,12 +27,12 @@
                 <input asp-for="Task.Description" class="form-control" />
                 <span asp-validation-for="Task.Description" class="text-danger"></span>
             </div>
-            
             <input type="hidden" asp-for="Task.ProjectId" value='@ViewBag.ProjectId'>
-
+            <input type="hidden" name="_method" value="post" />
+            <input type="hidden" name="csrf_token" value="" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="" title="Back" href="@referer"><i class="icon-reply"></i></a>
+                <button type="submit" value="Create" class="btn btn-primary"><i class="icon-plus"></i> Create</button>
+                <a class="btn btn-outline-danger" title="Cancel" href="@referer"><i class="icon-cancel"></i> Cancel</a>
             </div>
         </form>
     </div>

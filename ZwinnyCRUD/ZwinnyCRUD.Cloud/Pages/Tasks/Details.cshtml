@@ -11,12 +11,15 @@
     </ol>
 </nav>
 
-<h1>
-    Task
-    <small>
-        <a class="" title="Edit" asp-page="/Tasks/Edit" asp-route-id="@Model.Task.Id"><i class="icon-pencil-1"></i></a><a class="text-danger" title="Delete" asp-page="/Tasks/Delete" asp-route-id="@Model.Task.Id"><i class="icon-cancel"></i></a>
-    </small>
-</h1>
+
+<div class="page-header">
+    <h1>
+        Task
+    </h1>
+    <div class="h1-subtitle">
+        <a class="btn btn-sm btn-outline-primary" title="Edit" asp-page="/Tasks/Edit" asp-route-id="@Model.Task.Id"><i class="icon-pencil-1"></i></a><a class="btn btn-sm btn-outline-danger" title="Delete" asp-page="/Tasks/Delete" asp-route-id="@Model.Task.Id"><i class="icon-trash-3"></i></a>
+    </div>
+</div>
 
 <div>
     <hr />
@@ -37,10 +40,10 @@
             @Html.DisplayNameFor(model => model.Task.Project)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Task.Project.Description)
+            @Html.DisplayFor(model => model.Task.Project.Title)
         </dd>
     </dl>
 </div>
 <div>
-    <a class="" title="Back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i></a>
+    <a class="btn btn-outline-primary" title="Back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i> Back</a>
 </div>

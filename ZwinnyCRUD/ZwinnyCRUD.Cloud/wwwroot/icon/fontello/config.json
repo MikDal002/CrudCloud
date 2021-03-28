@@ -131,6 +131,24 @@
       "css": "minus",
       "code": 59411,
       "src": "fontawesome"
+    },
+    {
+      "uid": "3ab2abf6f936d3e53ee8c184cedaed82",
+      "css": "trash-3",
+      "code": 59414,
+      "src": "elusive"
+    },
+    {
+      "uid": "f4445feb55521283572ee88bc304f928",
+      "css": "floppy",
+      "code": 59412,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d7271d490b71df4311e32cdacae8b331",
+      "css": "home",
+      "code": 59413,
+      "src": "fontawesome"
     }
   ]
 }

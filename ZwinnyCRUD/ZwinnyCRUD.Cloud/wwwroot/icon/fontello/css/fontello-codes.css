@@ -19,4 +19,7 @@
 .icon-chat:before { content: '\e811'; } /* '' */
 .icon-plus:before { content: '\e812'; } /* '' */
 .icon-minus:before { content: '\e813'; } /* '' */
+.icon-floppy:before { content: '\e814'; } /* '' */
+.icon-home:before { content: '\e815'; } /* '' */
+.icon-trash-3:before { content: '\e816'; } /* '' */
 .icon-window-minimize:before { content: '\f2d1'; } /* '' */

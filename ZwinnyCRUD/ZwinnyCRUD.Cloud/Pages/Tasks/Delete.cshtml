@@ -41,7 +41,11 @@
     
     <form method="post">
         <input type="hidden" asp-for="Task.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <a class="" title="Back to @Model.Task.Project.Title details" href="@referer"><i class="icon-reply"></i></a>
+        <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="csrf_token" value="" />
+        <div>
+            <button type="submit" value="Delete" class="btn btn-danger"><i class="icon-trash-3"></i> Delete</button>
+            <a class="btn btn-outline-danger" title="Cancel" href="@referer"><i class="icon-cancel"></i> Cancel</a>
+        </div>
     </form>
 </div>

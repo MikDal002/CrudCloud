@@ -12,14 +12,15 @@
 </nav>
 
 <nav class="header-search">
-    <div>
+    <div class="page-header">
         <h1>
             Projects
-            <small>
-                <a class="" title="Create new project" asp-page="/Projects/Create"><i class="icon-plus"></i></a>
-            </small>
         </h1>
+        <div class="h1-subtitle">
+            <a class="btn btn-sm btn-outline-primary" title="Create new project" asp-page="/Projects/Create"><i class="icon-plus"></i></a>
+        </div>
     </div>
+     
     <div>
         <form class="form-inline">
             <input class="form-control search mr-sm-2" type="search" placeholder="Search" aria-label="Search" asp-for="SearchString" />
@@ -63,7 +64,7 @@
                 </td>
                 <td class="text-right">
                     <a asp-page="/Projects/Edit" asp-route-id="@item.Id" class='' title="Edit project @item.Title"><i class="icon-pencil"></i></a>
-                    <a asp-page="/Projects/Delete" asp-route-id="@item.Id" class='text-danger' title="Delete project @item.Title"><i class="icon-cancel"></i></a>
+                    <a asp-page="/Projects/Delete" asp-route-id="@item.Id" class='text-danger' title="Delete project @item.Title"><i class="icon-trash-3"></i></a>
                 </td>
             </tr>
         }

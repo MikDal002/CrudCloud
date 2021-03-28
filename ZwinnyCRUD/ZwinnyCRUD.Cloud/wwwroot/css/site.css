@@ -112,3 +112,34 @@ input.search:focus, input.search:hover, input.search:active {
     -webkit-appearance: none;
     box-shadow: none !important;
 }
+
+.page-header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.page-header h1 {
+
+}
+
+.page-header .h1-subtitle {
+    margin-left: 15px;
+}
+
+.page-header .h1-subtitle a {
+    transform: scale(0.9);
+}
+
+.navbar-nav .nav-item {
+    border-bottom: solid 2px transparent;
+}
+
+    .navbar-nav .nav-item:hover a {
+        color: #0275d8;
+    }
+
+.navbar-nav .nav-item.active {
+    border-bottom: solid 2px #0275d8;
+}

@@ -31,13 +31,13 @@
                 <span asp-validation-for="Task.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Task.ProjectId" class="control-label"></label>
+                <label asp-for="Task.ProjectId" class="control-label">Project</label>
                 <select asp-for="Task.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
                 <span asp-validation-for="Task.ProjectId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a class="" title="Back to @Model.Task.Title details" href="@referer"><i class="icon-reply"></i></a>
+                <button type="submit" value="Save" class="btn btn-primary"><i class="icon-floppy"></i> Save</button>
+                <a class="btn btn-outline-danger" title="Cancel" href="@referer"><i class="icon-cancel"></i> Cancel</a>
             </div>
         </form>
     </div>
