@@ -53,7 +53,7 @@ namespace ZwinnyCRUD.Cloud.Tests
                 Description = "That is a description",
                 Title = "My title"
             };
-            Action exe = async () => await projectController.OnPostAsync();
+            Func<System.Threading.Tasks.Task> exe = async () => await projectController.OnPostAsync();
             exe.Should().Throw<DbUpdateException>();
         }
 
