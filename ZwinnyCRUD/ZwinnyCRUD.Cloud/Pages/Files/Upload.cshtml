@@ -1,0 +1,39 @@
+﻿@page
+@model ZwinnyCRUD.Cloud.Pages.Files.UploadModel
+@{
+    string referer = Request.Headers["Referer"].ToString();
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Files">Files</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Upload</li>
+    </ol>
+</nav>
+
+<h1>Upload</h1>
+
+<form enctype="multipart/form-data" method="post">
+    <dl>
+        <dt>
+            <label asp-for="FileUpload.FormFile"></label>
+        </dt>
+        <dd>
+            <input asp-for="FileUpload.FormFile" type="file" />
+            <span asp-validation-for="FileUpload.FormFile"></span>
+        </dd>
+    </dl>    
+    <div class="form-group">
+        <button asp-page-handler="Upload" asp-route-id="@Model.Project.Id" type="submit" value="Upload" class="btn btn-primary"><i class="icon-plus"></i> Upload</button>
+        <a class="btn btn-outline-danger" title="Cancel" href="@referer"><i class="icon-cancel"></i> Cancel</a>
+    </div>
+</form>
+
+<p class="result">
+    @Model.Result
+</p>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

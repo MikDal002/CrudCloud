@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Cloud.Hubs;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -34,6 +36,18 @@ namespace ZwinnyCRUD.Cloud
                     options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")), ServiceLifetime.Transient);
             services.AddTransient<IProjectDatabase, ProjectDatabaseFromEFContext>();
             services.AddTransient<ITaskDatabase, TaskDatabaseFromEFContext>();
+            services.AddTransient<IFileDatabase, FileDatabaseFromEFContext>();
+
+            var filePath = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey) + Configuration.GetValue<string>("StoredFilesPath");
+
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            var physicalProvider = new PhysicalFileProvider(filePath);
+
+            services.AddSingleton<IFileProvider>(physicalProvider);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

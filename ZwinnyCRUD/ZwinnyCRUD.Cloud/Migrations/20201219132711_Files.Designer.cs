@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZwinnyCRUD.Cloud.Data;
 
 namespace ZwinnyCRUD.Cloud.Migrations
 {
     [DbContext(typeof(ZwinnyCRUDCloudContext))]
-    partial class ZwinnyCRUDCloudContextModelSnapshot : ModelSnapshot
+    [Migration("20201219132711_Files")]
+    partial class Files
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
