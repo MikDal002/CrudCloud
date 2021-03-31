@@ -10,7 +10,7 @@ using ZwinnyCRUD.Cloud.Data;
 namespace ZwinnyCRUD.Cloud.Migrations
 {
     [DbContext(typeof(ZwinnyCRUDCloudContext))]
-    [Migration("20201219132711_Files")]
+    [Migration("20201221182557_Files")]
     partial class Files
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
