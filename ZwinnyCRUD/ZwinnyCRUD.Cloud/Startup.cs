@@ -31,6 +31,11 @@ namespace ZwinnyCRUD.Cloud
         {
             services.AddRazorPages();
             services.AddSignalR();
+            services.AddControllers();
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+            });
 
             services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")), ServiceLifetime.Transient);
@@ -74,6 +79,7 @@ namespace ZwinnyCRUD.Cloud
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
                 endpoints.MapHub<MessageHub>($"/{nameof(MessageHub)}");
             });
         }
