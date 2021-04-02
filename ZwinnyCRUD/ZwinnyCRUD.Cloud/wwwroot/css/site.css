@@ -143,3 +143,73 @@ input.search:focus, input.search:hover, input.search:active {
 .navbar-nav .nav-item.active {
     border-bottom: solid 2px #0275d8;
 }
+
+.chat_box:nth-child(2n+1) {
+    background-color: rgba(2, 117, 216, 0.1);
+}
+
+.chat_box {
+    padding: 5px 0;
+}
+
+.chat_box .user::after { 
+  content: ":";
+}
+
+.chat_box .message {
+
+}
+
+.czateria #userInput, .czateria #messageInput {
+    width: 100%;
+    height: 100%;
+}
+
+#sendButton {
+    margin-top: 10px;
+}
+
+.czateria .button {
+    text-align: right;
+}
+
+.czateria input {
+    border: 0;
+    border-bottom: solid 2px #0275d8;
+    padding: 5px;
+}
+
+.czateria textarea {
+    border: 0;
+    border: solid 2px #0275d8;
+    padding: 5px;
+}
+
+.czateria #messagesList {   
+    height: 48vh;
+    overflow-y: scroll;
+}
+
+.txt-area {
+    padding-left: 0;
+}
+
+.user, .message {
+    line-height: 18px;
+}
+
+@media (max-width: 768px)
+{
+    .txt-area {
+        padding-right: 0;
+        margin: 10px 0;
+    }
+}
+
+@media (max-width: 576px)
+{
+    .user, .message {
+        width: 50%;
+    }
+
+}

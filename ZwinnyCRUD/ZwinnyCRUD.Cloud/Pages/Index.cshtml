@@ -8,32 +8,34 @@
 </nav>
 
 <h1>Czateria</h1>
-<div class="container">
-    <div class="row">&nbsp;</div>
+
+<div class="container czateria">
     <div class="row">
-        <div class="col-2">User</div>
-        <div class="col-4"><input type="text" id="userInput" /></div>
-    </div>
-    <div class="row">
-        <div class="col-2">Wiadomość</div>
-        <div class="col-4"><input type="text" id="messageInput" /></div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="sendButton" value="Send Message" />
+        <div class="col-xl-8 col-md-12 col-sm-12 chat">
+            <div class="col-12" id="messagesList">
+
+            </div>
+            <div class="col-12 mt-md-2">
+                <div class="row">
+
+                    <div class="col-md-8 col-sm-12 txt-area">
+                        <textarea type="text" id="messageInput" placeholder="Message"></textarea>
+                    </div>
+
+                    <div class="col-md-4 col-sm-12">
+                        <div class="row">
+                            <input placeholder="Name" type="text" id="userInput" />
+                        </div>
+                        <div class="row">
+                            <input class="btn btn-sm btn-primary w-100" type="button" id="sendButton" value="Send Message" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-12">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <ul id="messagesList"></ul>
-    </div>
-</div>
+
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/chat.js"></script>
