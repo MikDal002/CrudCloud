@@ -40,7 +40,15 @@ namespace ZwinnyCRUD.Cloud.Api
             return _projectDatabase.GetAll().ToList();
         }
 
-        [HttpDelete("")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Project>> Get([Required] int id)
+        {
+            var proj = await _projectDatabase.FindOrDefault(id);
+            if (proj == null) return NotFound();
+            else return proj;
+        }
+
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([Required] int id)
         {
             var deletedProject = await _projectDatabase.Delete(id);
@@ -55,7 +63,7 @@ namespace ZwinnyCRUD.Cloud.Api
             return myProj.Id;
         }
 
-        [HttpPatch("")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult> Update([Required] int id, string? title, string? description)
         {
             if (string.IsNullOrWhiteSpace(title) && description == null)
