@@ -22,7 +22,6 @@ namespace ZwinnyCRUD.Cloud.Api
 
     }
 
-
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{v:apiVersion}/[controller]")]
@@ -45,21 +44,38 @@ namespace ZwinnyCRUD.Cloud.Api
         public async Task<ActionResult> Delete([Required] int id)
         {
             var deletedProject = await _projectDatabase.Delete(id);
-            return deletedProject == null ? (StatusCodeResult)NotFound() : Ok();
+            return deletedProject == null ? (StatusCodeResult)NotFound() : NoContent();
         }
 
         [HttpPost("")]
         public async Task<ActionResult<int>> Create([Required] ProjectDto project)
         {
-            var myProj = new Project { Description = project.Description, Title = project.Title };
+            var myProj = new Project { Description = project.Description, Title = project.Title, CreationDate = DateTimeOffset.Now };
             await _projectDatabase.Add(myProj);
             return myProj.Id;
         }
 
         [HttpPatch("")]
-        public ActionResult Update(string? title, string? description)
+        public async Task<ActionResult> Update([Required] int id, string? title, string? description)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(title) && description == null)
+            {
+                return BadRequest("You have to provide title or desciption!");
+            }
+
+            var projectToUpdate = await _projectDatabase.FindOrDefault(id);
+            if (projectToUpdate == null) return NotFound("Project with this id doesn't exists!");
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                projectToUpdate.Title = title;
+            }
+            if (description != null)
+            {
+                projectToUpdate.Description = description;
+            }
+            await _projectDatabase.AddOrUpdate(projectToUpdate);
+
+            return NoContent();
         }
     }
 }
