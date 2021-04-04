@@ -9,7 +9,7 @@ namespace ZwinnyCRUD.Cloud.Tests
     [TestFixture]
     public abstract class DatabaseIntegrationTest
     {
-        public static ZwinnyCRUDCloudContext Context { get; private set; }
+        public ZwinnyCRUDCloudContext Context { get; private set; }
 
         [SetUp]
         public void Setup()
