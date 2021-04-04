@@ -43,7 +43,7 @@ namespace ZwinnyCRUD.Cloud.Tests
     public class TaskControllerTests : DatabaseIntegrationTest
     {
         [Test]
-        public async System.Threading.Tasks.Task CreateTask_WithoutParentProject_DoeasntSucceed()
+        public void CreateTask_WithoutParentProject_DoeasntSucceed()
         {
             var iproject = new ProjectDatabaseFromEFContext(Context, new NullLogger<ProjectDatabaseFromEFContext>());
             var itask = new TaskDatabaseFromEFContext(Context, iproject, new NullLogger<TaskDatabaseFromEFContext>());
