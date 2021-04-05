@@ -23,9 +23,12 @@ namespace ZwinnyCRUD.Cloud.Pages.Tasks
         }
         
         [HttpGet("id")]
-        public IActionResult OnGet(string Id)
+        public IActionResult OnGet(int Id)
         {
             ViewData["ProjectId"] = Id;
+            var project_details = _projectContext.FindAll(e => e.Id == Id).Single();
+            ViewData["ProjectTitle"] = project_details.Title;
+
             return Page();
         }
 

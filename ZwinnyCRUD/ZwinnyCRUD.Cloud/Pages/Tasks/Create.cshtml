@@ -1,14 +1,14 @@
 ﻿@page
 @model ZwinnyCRUD.Cloud.Pages.Projects.CreateModel
 
-@{
+@{    
     ViewData["Title"] = "Create";
     string referer = Request.Headers["Referer"].ToString();
 }
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/Projects">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Create</li>
+        <li class="breadcrumb-item"><a href="/Projects/Details?id=@ViewBag.ProjectId">@ViewBag.ProjectTitle</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create task</li>
     </ol>
 </nav>
 
