@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using ZwinnyCRUD.Cloud.Data;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Cloud.Hubs;
-using Microsoft.AspNetCore.Identity;
-using System.IO;
-using Microsoft.Extensions.FileProviders;
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -30,6 +31,13 @@ namespace ZwinnyCRUD.Cloud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("ZwinnyCRUDCloudContext")), ServiceLifetime.Transient);
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ZwinnyCRUDCloudContext>();
+
             services.AddRazorPages();
             services.AddSignalR();
             services.AddControllers();
@@ -37,12 +45,6 @@ namespace ZwinnyCRUD.Cloud
             {
                 options.ReportApiVersions = true;
             });
-
-            services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")), ServiceLifetime.Transient);
-
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                    .AddEntityFrameworkStores<ZwinnyCRUDCloudContext>();
 
             services.AddTransient<IProjectDatabase, ProjectDatabaseFromEFContext>();
             services.AddTransient<ITaskDatabase, TaskDatabaseFromEFContext>();
@@ -82,9 +84,8 @@ namespace ZwinnyCRUD.Cloud
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
