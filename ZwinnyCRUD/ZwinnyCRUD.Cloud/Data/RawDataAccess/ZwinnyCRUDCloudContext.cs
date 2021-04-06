@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Data
 {
-    public class ZwinnyCRUDCloudContext : DbContext
+    public class ZwinnyCRUDCloudContext : IdentityDbContext
     {
         public ZwinnyCRUDCloudContext (DbContextOptions<ZwinnyCRUDCloudContext> options)
             : base(options)

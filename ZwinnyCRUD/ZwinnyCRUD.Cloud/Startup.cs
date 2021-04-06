@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using ZwinnyCRUD.Cloud.Data;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Cloud.Hubs;
+using Microsoft.AspNetCore.Identity;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 
@@ -39,8 +40,15 @@ namespace ZwinnyCRUD.Cloud
 
             services.AddDbContext<ZwinnyCRUDCloudContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ZwinnyCRUDCloudContext")), ServiceLifetime.Transient);
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ZwinnyCRUDCloudContext>();
+
             services.AddTransient<IProjectDatabase, ProjectDatabaseFromEFContext>();
             services.AddTransient<ITaskDatabase, TaskDatabaseFromEFContext>();
+            services.AddTransient<IRegisterDatabase, RegisterDatabaseFromEFContext>();
+            services.AddTransient<ILoginDatabase, LoginDatabaseFromEFContext>();
+            services.AddTransient<ILogoutDatabase, LogoutDatabaseFromEFContext>();
             services.AddTransient<IFileDatabase, FileDatabaseFromEFContext>();
 
             var filePath = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey) + Configuration.GetValue<string>("StoredFilesPath");
@@ -75,6 +83,8 @@ namespace ZwinnyCRUD.Cloud
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZwinnyCRUD.Mobile.iOS", "Zw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZwinnyCRUD.Mobile", "ZwinnyCRUD.Mobile\ZwinnyCRUD.Mobile\ZwinnyCRUD.Mobile.csproj", "{24E0A90F-54C0-4804-971A-2B4A08F9EDBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZwinnyCRUD.Cloud", "ZwinnyCRUD.Cloud\ZwinnyCRUD.Cloud.csproj", "{65BF685B-A18D-4EF2-8BAB-B1A738069C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZwinnyCRUD.Cloud", "ZwinnyCRUD.Cloud\ZwinnyCRUD.Cloud.csproj", "{65BF685B-A18D-4EF2-8BAB-B1A738069C4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZwinnyCRUD.Cloud.Tests", "ZwinnyCRUD.Cloud.Tests\ZwinnyCRUD.Cloud.Tests.csproj", "{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZwinnyCRUD.Cloud.Tests", "ZwinnyCRUD.Cloud.Tests\ZwinnyCRUD.Cloud.Tests.csproj", "{9C603FBC-851F-4E3F-88CB-EFAD88CDF135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
