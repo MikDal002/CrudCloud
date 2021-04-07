@@ -12,21 +12,21 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
+using ZwinnyCRUD.Cloud.Services;
 
 namespace ZwinnyCRUD.Cloud.Pages.Files
 {
     public class UploadModel : PageModel
     {
+        private readonly FileUploadService _uploadService;
         private readonly IProjectDatabase _projectContext;
         private readonly IFileDatabase _fileContext;
-        private readonly string _targetFilePath;
 
-        public UploadModel(IProjectDatabase projectContext,
-            IConfiguration config, IFileDatabase fileContext)
+        public UploadModel(IProjectDatabase projectContext, IFileDatabase fileContext, FileUploadService uploadService)
         {
             _projectContext = projectContext;
-            _targetFilePath = config.GetValue<string>(WebHostDefaults.ContentRootKey) + config.GetValue<string>("StoredFilesPath");
             _fileContext = fileContext;
+            _uploadService = uploadService;
         }
 
         [BindProperty]
@@ -67,38 +67,16 @@ namespace ZwinnyCRUD.Cloud.Pages.Files
                 return RedirectToPage("/Index");
             }
 
-            var dirPath = Path.Combine(_targetFilePath, Convert.ToString(Project.Id));
-            var filePath = Path.Combine(dirPath, FileUpload.FormFile.FileName);
-
-            if (!Directory.Exists(dirPath))
+            var fileToUpload = await _uploadService.Upload(FileUpload.FormFile.FileName, FileUpload.FormFile.Length, FileUpload.FormFile.OpenReadStream(), id.Value);
+            if (fileToUpload == null)
             {
-                Directory.CreateDirectory(dirPath);
-            }
-
-            if (System.IO.File.Exists(filePath))
-            {
-                Result = $"Plik o nazwie {FileUpload.FormFile.FileName} ju¿ istnieje w tym projekcie.";
-
+                Result = "There is already file with that name in this project";
                 return Page();
             }
 
-            var file = new Common.Models.File
-            {
-                FilePath = filePath,
-                Name = FileUpload.FormFile.FileName,
-                SizeinBytes = FileUpload.FormFile.Length,
-                Uploaded = DateTimeOffset.UtcNow,
-                ProjectId = Project.Id
-            };
+            await _fileContext.Add(fileToUpload);
 
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await FileUpload.FormFile.CopyToAsync(fileStream);
-            }
-
-            await _fileContext.Add(file);
-
-            return Redirect("/Projects/Details?id=" + file.ProjectId);
+            return Redirect("/Projects/Details?id=" + fileToUpload.ProjectId);
         }
     }
 

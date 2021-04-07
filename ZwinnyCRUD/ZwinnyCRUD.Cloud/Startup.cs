@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using ZwinnyCRUD.Cloud.Data;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Cloud.Hubs;
+using ZwinnyCRUD.Cloud.Services;
 
 namespace ZwinnyCRUD.Cloud
 {
@@ -52,6 +53,8 @@ namespace ZwinnyCRUD.Cloud
             services.AddTransient<ILoginDatabase, LoginDatabaseFromEFContext>();
             services.AddTransient<ILogoutDatabase, LogoutDatabaseFromEFContext>();
             services.AddTransient<IFileDatabase, FileDatabaseFromEFContext>();
+
+            services.AddTransient<FileUploadService>();
 
             var filePath = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey) + Configuration.GetValue<string>("StoredFilesPath");
 
