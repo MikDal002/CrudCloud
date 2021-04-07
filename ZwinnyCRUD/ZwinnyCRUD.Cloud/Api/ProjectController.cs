@@ -29,11 +29,13 @@ namespace ZwinnyCRUD.Cloud.Api
     {
         private readonly IProjectDatabase _projectDatabase;
         private readonly IFileDatabase _fileDatabase;
+        private readonly ITaskDatabase _taskDatabase;
 
-        public ProjectController(IProjectDatabase projectDatabase, IFileDatabase fileDatabase)
+        public ProjectController(IProjectDatabase projectDatabase, IFileDatabase fileDatabase, ITaskDatabase taskDatabase)
         {
             _projectDatabase = projectDatabase;
             _fileDatabase = fileDatabase;
+            _taskDatabase = taskDatabase;
         }
 
         [HttpGet("")]
@@ -48,6 +50,14 @@ namespace ZwinnyCRUD.Cloud.Api
             var proj = await _projectDatabase.FindOrDefault(id);
             if (proj == null) return NotFound();
             else return proj;
+        }
+
+        [HttpGet("{id}/tasks/")]
+        public async Task<ActionResult<List<ZwinnyCRUD.Common.Models.Task>>> GetTasks([Required] int id)
+        {
+            var Project = await _projectDatabase.FindOrDefault(id);
+            if (Project == null) return NotFound("Project with this id doesn't exist!");
+            return _taskDatabase.FindAll(m => (m.ProjectId.Equals(Project.Id))).ToList();
         }
 
         [HttpGet("/{id}/files/")]
