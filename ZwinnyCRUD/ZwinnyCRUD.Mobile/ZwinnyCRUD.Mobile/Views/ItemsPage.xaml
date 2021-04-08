@@ -4,7 +4,7 @@
              x:Class="ZwinnyCRUD.Mobile.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:ZwinnyCRUD.Mobile.ViewModels"  
-             xmlns:model="clr-namespace:ZwinnyCRUD.Mobile.Models"  
+             xmlns:model="clr-namespace:ZwinnyCRUD.Common.Models;assembly=ZwinnyCRUD.Common"  
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
@@ -20,8 +20,8 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Item">
-                        <Label Text="{Binding Text}" 
+                    <StackLayout Padding="10" x:DataType="model:Project">
+                        <Label Text="{Binding Title}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />

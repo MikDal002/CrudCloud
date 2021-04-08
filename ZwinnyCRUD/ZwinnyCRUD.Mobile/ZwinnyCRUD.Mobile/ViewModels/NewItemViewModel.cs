@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Input;
 using ZwinnyCRUD.Mobile.Models;
 using Xamarin.Forms;
+using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
 {
@@ -49,10 +50,10 @@ namespace ZwinnyCRUD.Mobile.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            Project newItem = new Project()
             {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
+                //Id = Guid.NewGuid().ToString(),
+                Title = Text,
                 Description = Description
             };
 

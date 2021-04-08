@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-
+using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Models;
 using ZwinnyCRUD.Mobile.Views;
 
@@ -12,25 +12,25 @@ namespace ZwinnyCRUD.Mobile.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private Project _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<Project> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<Project> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Project>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<Project>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        async System.Threading.Tasks.Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
@@ -59,7 +59,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public Project SelectedItem
         {
             get => _selectedItem;
             set
@@ -74,7 +74,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(Project item)
         {
             if (item == null)
                 return;

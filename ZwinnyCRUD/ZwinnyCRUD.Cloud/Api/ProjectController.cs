@@ -6,21 +6,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
+using ZwinnyCRUD.Common.Dtos;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Cloud.Api
 {
-    public class ProjectDto
-    {
-        [Required]
-        [StringLength(31, ErrorMessage = "Tytuł jest zbyt długi.")]
-        public string Title { get; set; }
-
-        [Required]
-        [StringLength(255, ErrorMessage = "Opis jest zbyt długi.")]
-        public string Description { get; set; }
-
-    }
 
     [ApiController]
     [ApiVersion("1.0")]
@@ -39,17 +29,17 @@ namespace ZwinnyCRUD.Cloud.Api
         }
 
         [HttpGet("")]
-        public ActionResult<List<Project>> Get()
+        public ActionResult<List<ProjectDto>> Get()
         {
-            return _projectDatabase.GetAll().ToList();
+            return _projectDatabase.GetAll().Select(d => ProjectDto.FromProject(d)).ToList();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> Get([Required] int id)
+        public async Task<ActionResult<ProjectDto>> Get([Required] int id)
         {
             var proj = await _projectDatabase.FindOrDefault(id);
             if (proj == null) return NotFound();
-            else return proj;
+            else return ProjectDto.FromProject(proj);
         }
 
         [HttpGet("{id}/tasks/")]

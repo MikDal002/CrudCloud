@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
-
+using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Models;
 using ZwinnyCRUD.Mobile.Services;
 
@@ -12,7 +12,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IDataStore<Project> DataStore => DependencyService.Get<IDataStore<Project>>();
 
         bool isBusy = false;
         public bool IsBusy

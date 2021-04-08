@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Services;
 using ZwinnyCRUD.Mobile.Views;
 
@@ -17,8 +18,10 @@ namespace ZwinnyCRUD.Mobile
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            var datacontext = DependencyService.Get<IDataStore<Project>>();
+             await datacontext.GetItemsAsync(true);
         }
 
         protected override void OnSleep()
