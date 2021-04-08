@@ -67,11 +67,11 @@ namespace ZwinnyCRUD.Cloud.Api
         }
 
         [HttpPost("")]
-        public async Task<ActionResult<int>> Create([Required] ProjectDto project)
+        public async Task<ActionResult<ProjectDto>> Create([Required] ProjectDto project)
         {
             var myProj = new Project { Description = project.Description, Title = project.Title, CreationDate = DateTimeOffset.Now };
             await _projectDatabase.Add(myProj);
-            return myProj.Id;
+            return ProjectDto.FromProject(myProj);
         }
 
         [HttpPatch("{id}")]
