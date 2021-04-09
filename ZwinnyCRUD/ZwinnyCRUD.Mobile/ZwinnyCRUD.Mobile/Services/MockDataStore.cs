@@ -19,8 +19,8 @@ namespace ZwinnyCRUD.Mobile.Services
     }
     public class MockDataStore : IDataStore<Project>
     {
-//        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
-        private const string BaseUrl = "http://192.168.0.227:45455/";
+        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
+        // private const string BaseUrl = "http://192.168.0.227:45455/";
         private readonly ZwinnyCrudRestInterface ApiAccess;
         List<Project> items = new List<Project>();
 
@@ -36,8 +36,8 @@ namespace ZwinnyCRUD.Mobile.Services
             {
                 return false;
             }
-            item.Id = proj!.Id.Value;
-            item.CreationDate = proj!.CreationDate.Value;
+            item.Id = proj.Id.Value;
+            item.CreationDate = proj.CreationDate.Value;
             return true;
         }
 
@@ -76,10 +76,10 @@ namespace ZwinnyCRUD.Mobile.Services
                     .Where (d => d.CreationDate != null)
                     .Select(d => new Project()
                     {
-                        Id = d!.Id.Value,
+                        Id = d.Id.Value,
                         Description = d.Description,
                         Title = d.Title,
-                        CreationDate = d!.CreationDate.Value
+                        CreationDate = d.CreationDate.Value
                     }).ToList();
             }
             return items;
