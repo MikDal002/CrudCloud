@@ -28,12 +28,21 @@ namespace ZwinnyCRUD.Cloud.Api
             _taskDatabase = taskDatabase;
         }
 
+        /// <summary>
+        /// Zwraca wszystkie dostępne projekty.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("")]
         public ActionResult<List<ProjectDto>> Get()
         {
             return _projectDatabase.GetAll().Select(d => ProjectDto.FromProject(d)).ToList();
         }
 
+        /// <summary>
+        /// Zwraca projekt o podanym ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectDto>> Get([Required] int id)
         {
@@ -59,6 +68,11 @@ namespace ZwinnyCRUD.Cloud.Api
             return _fileDatabase.FindAll(m => (m.ProjectId.Equals(Project.Id))).ToList();
         }
 
+        /// <summary>
+        /// Usuwa projekt o podanym ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([Required] int id)
         {
@@ -66,6 +80,11 @@ namespace ZwinnyCRUD.Cloud.Api
             return deletedProject == null ? (StatusCodeResult)NotFound() : NoContent();
         }
 
+        /// <summary>
+        /// Tworzy nowy projekt zwracając Projekt z uzupełnionymi szczegółami.
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
         [HttpPost("")]
         public async Task<ActionResult<ProjectDto>> Create([Required] ProjectDto project)
         {
@@ -74,6 +93,13 @@ namespace ZwinnyCRUD.Cloud.Api
             return ProjectDto.FromProject(myProj);
         }
 
+        /// <summary>
+        /// Aktualizuje projekt o podanym ID zgodnie z przesłanymi parametrami.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         [HttpPatch("{id}")]
         public async Task<ActionResult> Update([Required] int id, string? title, string? description)
         {
