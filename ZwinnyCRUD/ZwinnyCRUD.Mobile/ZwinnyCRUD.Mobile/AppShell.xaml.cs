@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using ZwinnyCRUD.Mobile.ViewModels;
-using ZwinnyCRUD.Mobile.Views;
 using Xamarin.Forms;
+using ZwinnyCRUD.Mobile.Views;
 
 namespace ZwinnyCRUD.Mobile
 {
@@ -11,8 +9,8 @@ namespace ZwinnyCRUD.Mobile
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(ProjectDetailPage), typeof(ProjectDetailPage));
+            Routing.RegisterRoute(nameof(NewProjectPage), typeof(NewProjectPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

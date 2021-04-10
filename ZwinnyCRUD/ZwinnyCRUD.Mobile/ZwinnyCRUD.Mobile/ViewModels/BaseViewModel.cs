@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
 using ZwinnyCRUD.Common.Models;
-using ZwinnyCRUD.Mobile.Models;
 using ZwinnyCRUD.Mobile.Services;
 
 namespace ZwinnyCRUD.Mobile.ViewModels

@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using ZwinnyCRUD.Mobile.Models;
 using Xamarin.Forms;
 using ZwinnyCRUD.Common.Models;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public class NewProjectViewModel : BaseViewModel
     {
-        private string text;
-        private string description;
+        private string _title;
+        private string _description;
 
-        public NewItemViewModel()
+        public NewProjectViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
@@ -23,20 +19,20 @@ namespace ZwinnyCRUD.Mobile.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(_title)
+                && !String.IsNullOrWhiteSpace(_description);
         }
 
-        public string Text
+        public string Title
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
         public Command SaveCommand { get; }
@@ -53,11 +49,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             Project newItem = new Project()
             {
                 //Id = Guid.NewGuid().ToString(),
-                Title = Text,
+                Title = Title,
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await DataStore.AddProjectAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

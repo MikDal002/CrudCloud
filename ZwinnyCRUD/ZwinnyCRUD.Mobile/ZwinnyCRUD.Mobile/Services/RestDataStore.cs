@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZwinnyCRUD.Common.Dtos;
 using ZwinnyCRUD.Common.Models;
-using ZwinnyCRUD.Mobile.Models;
 
 namespace ZwinnyCRUD.Mobile.Services
 {
@@ -17,31 +16,31 @@ namespace ZwinnyCRUD.Mobile.Services
         [Post("api/v1.0/Project/")]
         System.Threading.Tasks.Task<ProjectDto> AddNewProject([Body] ProjectDto project);
     }
-    public class MockDataStore : IDataStore<Project>
+    public class RestDataStore : IDataStore<Project>
     {
         private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
         // private const string BaseUrl = "http://192.168.0.227:45455/";
         private readonly ZwinnyCrudRestInterface ApiAccess;
-        List<Project> items = new List<Project>();
+        List<Project> _projects = new List<Project>();
 
-        public MockDataStore()
+        public RestDataStore()
         {
             ApiAccess = RestClient.For<ZwinnyCrudRestInterface>(BaseUrl);
         }
 
-        public async Task<bool> AddItemAsync(Project item)
+        public async Task<bool> AddProjectAsync(Project project)
         {
-            var proj = await ApiAccess.AddNewProject(ProjectDto.FromProject(item));
+            var proj = await ApiAccess.AddNewProject(ProjectDto.FromProject(project));
             if (proj.Id == null || proj.CreationDate == null)
             {
                 return false;
             }
-            item.Id = proj.Id.Value;
-            item.CreationDate = proj.CreationDate.Value;
+            project.Id = proj.Id.Value;
+            project.CreationDate = proj.CreationDate.Value;
             return true;
         }
 
-        public async Task<bool> UpdateItemAsync(Project item)
+        public async Task<bool> UpdateProjectAsync(Project project)
         {
             throw new NotImplementedException();
 
@@ -52,7 +51,7 @@ namespace ZwinnyCRUD.Mobile.Services
             // return await System.Threading.Tasks.Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteItemAsync(int id)
+        public async Task<bool> DeleteProjectAsync(int id)
         {
             throw new NotImplementedException();
             // var oldItem = items.Where((Project arg) => arg.Id == id).FirstOrDefault();
@@ -61,19 +60,19 @@ namespace ZwinnyCRUD.Mobile.Services
             // return await System.Threading.Tasks.Task.FromResult(true);
         }
 
-        public async Task<Project> GetItemAsync(int id)
+        public async Task<Project> GetProjectAsync(int id)
         {
-            return await System.Threading.Tasks.Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            return await System.Threading.Tasks.Task.FromResult(_projects.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Project>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Project>> GetProjectsAsync(bool forceRefresh = false)
         {
             if (forceRefresh)
             {
-                items.Clear();
-                items = (await ApiAccess.GetAllProjectsAsync())
-                    .Where (d => d.Id != null)
-                    .Where (d => d.CreationDate != null)
+                _projects.Clear();
+                _projects = (await ApiAccess.GetAllProjectsAsync())
+                    .Where(d => d.Id != null)
+                    .Where(d => d.CreationDate != null)
                     .Select(d => new Project()
                     {
                         Id = d.Id.Value,
@@ -82,7 +81,7 @@ namespace ZwinnyCRUD.Mobile.Services
                         CreationDate = d.CreationDate.Value
                     }).ToList();
             }
-            return items;
+            return _projects;
         }
     }
 }

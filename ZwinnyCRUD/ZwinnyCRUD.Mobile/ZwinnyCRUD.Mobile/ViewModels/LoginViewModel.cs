@@ -1,8 +1,5 @@
-﻿using ZwinnyCRUD.Mobile.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using ZwinnyCRUD.Mobile.Views;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
 {

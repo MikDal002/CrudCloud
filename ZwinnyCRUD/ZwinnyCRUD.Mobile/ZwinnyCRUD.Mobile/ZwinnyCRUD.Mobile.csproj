@@ -17,4 +17,20 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ZwinnyCRUD.Common\ZwinnyCRUD.Common.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\NewProjectPage.xaml.cs">
+      <DependentUpon>NewProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProjectDetailPage.xaml.cs">
+      <DependentUpon>ProjectDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
