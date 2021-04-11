@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +13,7 @@ namespace ZwinnyCRUD.Cloud.Api
 
     [ApiController]
     [ApiVersion("1.0")]
+    [Produces("application/json")]
     [Route("api/v{v:apiVersion}/[controller]")]
     public class ProjectController : ControllerBase
     {
@@ -59,7 +59,7 @@ namespace ZwinnyCRUD.Cloud.Api
             return _taskDatabase.FindAll(m => (m.ProjectId.Equals(Project.Id))).ToList();
         }
 
-        [HttpGet("/{id}/files/")]
+        [HttpGet("{id}/files/")]
         public async Task<ActionResult<List<ZwinnyCRUD.Common.Models.File>>> GetFiles([Required] int id)
         {
             var Project = await _projectDatabase.FindOrDefault(id);

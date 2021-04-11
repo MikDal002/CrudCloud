@@ -1,22 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
-using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Cloud.Services;
 
 namespace ZwinnyCRUD.Cloud.Api
 {
     [ApiController]
     [ApiVersion("1.0")]
+    [Produces("application/json")]
     [Route("api/v{v:apiVersion}/[controller]")]
     public class FileController : ControllerBase
     {

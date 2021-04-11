@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 using ZwinnyCRUD.Cloud.Data;
 using ZwinnyCRUD.Cloud.Data.FascadeDefinitions;
 using ZwinnyCRUD.Cloud.Hubs;
@@ -20,6 +20,29 @@ using ZwinnyCRUD.Cloud.Services;
 
 namespace ZwinnyCRUD.Cloud
 {
+    public class RemoveVersionFromParameter : IOperationFilter
+    {
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
+        {
+            var versionParameter = operation.Parameters.SingleOrDefault(p => p.Name == "v");
+            if (versionParameter == null) return;
+            operation.Parameters.Remove(versionParameter);
+        }
+    }
+
+    public class ReplaceVersionWithExactValueInPath : Swashbuckle.AspNetCore.SwaggerGen.IDocumentFilter
+    {
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+        {
+            var paths = new OpenApiPaths();
+            foreach (var path in swaggerDoc.Paths)
+            {
+                paths.Add(path.Key.Replace("v{v}", swaggerDoc.Info.Version), path.Value);
+            }
+            swaggerDoc.Paths = paths;
+        }
+    }
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -39,12 +62,47 @@ namespace ZwinnyCRUD.Cloud
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ZwinnyCRUDCloudContext>();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1.0", new OpenApiInfo
+                {
+                    Version = "v1.0",
+                    Title = "ZwinnyCRUD API",
+                    Description = "Aplikacja do zarządzania zadaniami i projektami",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "ZwinnyCRUD team",
+                        Email = string.Empty,
+                        Url = new Uri("https://example.com/zwinnycrudteam"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Na razie brak licencji",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+                // This call remove version from parameter, without it we will have version as parameter 
+                // for all endpoints in swagger UI
+                c.OperationFilter<RemoveVersionFromParameter>();
+
+                // This make replacement of v{version:apiVersion} to real version of corresponding swagger doc.
+                c.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+            });
             services.AddRazorPages();
             services.AddSignalR();
             services.AddControllers();
-            services.AddApiVersioning(options =>
+            services.AddApiVersioning(o =>
             {
-                options.ReportApiVersions = true;
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
             services.AddTransient<IProjectDatabase, ProjectDatabaseFromEFContext>();
@@ -82,8 +140,14 @@ namespace ZwinnyCRUD.Cloud
                 app.UseHsts();
             }
 
+            app.UseSwagger();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "API v1.0");
+            });
 
             app.UseRouting();
 
