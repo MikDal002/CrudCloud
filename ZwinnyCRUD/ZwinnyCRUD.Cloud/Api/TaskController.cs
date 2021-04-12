@@ -15,11 +15,11 @@ namespace ZwinnyCRUD.Cloud.Api
     public class TaskDto
     {
         [Required]
-        [StringLength(31, ErrorMessage = "Tytuł jest zbyt długi.")]
+        [StringLength(31, ErrorMessage = "Title is too long.")]
         public string Title { get; set; }
 
         [Required]
-        [StringLength(255, ErrorMessage = "Opis jest zbyt długi.")]
+        [StringLength(255, ErrorMessage = "Description is too long.")]
         public string Description { get; set; }
     }
 
