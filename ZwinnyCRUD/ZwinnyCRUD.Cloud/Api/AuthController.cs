@@ -55,7 +55,7 @@ namespace ZwinnyCRUD.Cloud.Api
 
             if (result.Succeeded)
             {
-                return Ok();
+                return Ok(user.Mail);
             }
 
             return BadRequest("Email or password incorrect.");
