@@ -34,10 +34,10 @@ namespace ZwinnyCRUD.Cloud.Api
             _taskDatabase = taskDatabase;
         }
 
-        [HttpGet("{task_id}")]
-        public async Task<ActionResult<TaskDto>> Get([Required] int task_id, int project_id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TaskDto>> Get([Required] int id)
         {
-            var task = await _taskDatabase.FindOrDefault(task_id);
+            var task = await _taskDatabase.FindOrDefault(id);
 
             if (task == null) return NotFound();
             else
@@ -47,12 +47,6 @@ namespace ZwinnyCRUD.Cloud.Api
                 taskDto.Description = task.Description;
                 return taskDto;
             }
-        }
-
-        [HttpGet("project/{project_id}")]
-        public ActionResult<List<Common.Models.Task>> Get([Required] int project_id)
-        {
-            return _taskDatabase.FindAll(e => e.ProjectId == project_id).ToList();
         }
 
         [HttpPost("")]
