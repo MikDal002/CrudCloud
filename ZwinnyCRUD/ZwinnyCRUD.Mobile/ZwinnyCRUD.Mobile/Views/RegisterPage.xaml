@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ZwinnyCRUD.Mobile.Views.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Register">
+    <ContentPage.Content>
+        <StackLayout Padding="30" VerticalOptions="Start">
+            <Label HorizontalOptions="Center" Text="Username" />
+            <Entry x:Name="EntryMail" Text="{Binding Mail, Mode=TwoWay}" />
+            <Label HorizontalOptions="Center" Text="Password" />
+            <Entry
+                x:Name="EntryPassword"
+                IsPassword="True"
+                Text="{Binding Password, Mode=TwoWay}" />
+            <Label HorizontalOptions="Center" Text="Re-type Password" />
+            <Entry
+                x:Name="EntryConfirmPassword"
+                IsPassword="True"
+                Text="{Binding ConfirmPassword, Mode=TwoWay}" />
+            <Button
+                x:Name="ButtonLogin"
+                BackgroundColor="#22A7F0"
+                Command="{Binding RegisterCommand}"
+                Text="Register"
+                TextColor="White" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
