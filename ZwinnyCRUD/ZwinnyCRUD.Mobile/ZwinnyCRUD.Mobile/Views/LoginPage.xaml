@@ -1,14 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="ZwinnyCRUD.Mobile.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+<ContentPage
+    x:Class="ZwinnyCRUD.Mobile.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+        <StackLayout Padding="30" VerticalOptions="Start">
+            <Label HorizontalOptions="Center" Text="Username" />
+            <Entry x:Name="EntryMail" Text="{Binding Mail, Mode=TwoWay}" />
+            <Label HorizontalOptions="Center" Text="Password" />
+            <Entry
+                x:Name="EntryPassword"
+                IsPassword="True"
+                Text="{Binding Password, Mode=TwoWay}" />
+            <Button
+                x:Name="ButtonLogin"
+                BackgroundColor="#22A7F0"
+                Command="{Binding LoginCommand}"
+                Text="Login"
+                TextColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
