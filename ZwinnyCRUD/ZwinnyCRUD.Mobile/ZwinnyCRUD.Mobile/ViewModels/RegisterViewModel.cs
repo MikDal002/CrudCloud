@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json.Linq;
+using RestSharp;
 using System.Net;
 using Xamarin.Forms;
 using ZwinnyCRUD.Mobile.Views;
@@ -64,6 +65,8 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             HttpStatusCode statusCode = response.StatusCode;
             int numericStatusCode = (int)statusCode;
 
+            var details = JObject.Parse(response.Content);
+
             if (numericStatusCode == 201)
             {
                 await Application.Current.MainPage.DisplayAlert("Registration success", response.Content, "Okay", "Cancel");
@@ -71,7 +74,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Registration failed", response.Content, "Okay", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Registration failed", details["detail"].ToString(), "Okay", "Cancel");
             }
         }
     }
