@@ -23,7 +23,6 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
