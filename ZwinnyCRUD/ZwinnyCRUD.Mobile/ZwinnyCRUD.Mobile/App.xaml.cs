@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Services;
 
@@ -6,12 +7,12 @@ namespace ZwinnyCRUD.Mobile
 {
     public partial class App : Application
     {
-
         public App()
         {
             InitializeComponent();
 
             DependencyService.Register<RestDataStore>();
+            DependencyService.Register<AuthenticationService>();
             MainPage = new AppShell();
         }
 

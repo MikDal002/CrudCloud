@@ -1,6 +1,9 @@
-﻿using RestSharp;
+﻿using Acr.UserDialogs;
+using RestSharp;
+using System;
 using System.Net;
 using Xamarin.Forms;
+using ZwinnyCRUD.Mobile.Services;
 using ZwinnyCRUD.Mobile.Views;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
@@ -10,7 +13,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _mail;
         private string _password;
 
+        
+
         public Command LoginCommand { get; }
+
+        private AuthenticationService _service;
 
         public string Mail
         {
@@ -26,35 +33,39 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
+            _service = DependencyService.Get<AuthenticationService>();
+            _service.LoggingStatusChanged += Service_LoggingStatusChanged;
         }
 
         private async void OnLoginClicked(object obj)
         {
-            var client = new RestClient("https://zwinnycrudtest.azurewebsites.net/");
-            var request = new RestRequest("api/v1.0/auth/signin", Method.POST);
-
-            request.AddHeader("Accept", "application/json");
-
-            var body = new
+            try
             {
-                Mail = _mail,
-                Password = _password
-            };
-            request.AddJsonBody(body);
-
-            IRestResponse response = client.Execute(request);
-
-            HttpStatusCode statusCode = response.StatusCode;
-            int numericStatusCode = (int)statusCode;
-
-            if (numericStatusCode == 200)
+                UserDialogs.Instance.ShowLoading("Czekaj...");
+                await _service.LoginUser(_mail, _password);
+            }
+            catch (Exception exce)
             {
-                await Application.Current.MainPage.DisplayAlert("Login success", response.Content, "Okay", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Login failed", exce.Message, "Okay");
+            }
+            finally
+            {
+                UserDialogs.Instance.HideLoading();
+            }
+
+        }
+
+        private async void Service_LoggingStatusChanged(object sender, AuthenticationService.UserStatus e)
+        {
+
+            if (e == AuthenticationService.UserStatus.Logged)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login success", "", "Okay");
                 await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Login failed", response.Content, "Okay", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Login failed", "Incorrect login or password.", "Okay");
             }
         }
     }

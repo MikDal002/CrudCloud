@@ -98,18 +98,4 @@
             Icon="tab_feed.png" />
     </FlyoutItem>
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Register" ContentTemplate="{DataTemplate local:RegisterPage}" />
-    </FlyoutItem>
-
-    <!--  When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-    <MenuItem
-        Clicked="OnMenuItemClicked"
-        StyleClass="MenuItemLayoutStyle"
-        Text="Login" />
-    <ShellContent
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Route="LoginPage"
-        Shell.FlyoutBehavior="Disabled" />
-
 </Shell>
