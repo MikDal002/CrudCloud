@@ -15,7 +15,7 @@ namespace ZwinnyCRUD.Mobile.Services
             Logged,
             Unlogged
         }
-        public async Task LoginUser(string login, string password)
+        public async Task<bool> LoginUser(string login, string password)
         {
             if (string.IsNullOrEmpty(login))
             {
@@ -42,6 +42,7 @@ namespace ZwinnyCRUD.Mobile.Services
             IRestResponse response = await client.ExecuteAsync(request);
 
             LoggingStatusChanged?.Invoke(this, response.IsSuccessful ? UserStatus.Logged : UserStatus.Unlogged);
+            return response.IsSuccessful;
         }
 
         public void LogoutUser()

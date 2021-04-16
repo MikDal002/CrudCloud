@@ -13,8 +13,6 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _mail;
         private string _password;
 
-        
-
         public Command LoginCommand { get; }
 
         private AuthenticationService _service;
@@ -39,10 +37,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
+            bool LogSuccess = false;
             try
             {
                 UserDialogs.Instance.ShowLoading("Czekaj...");
-                await _service.LoginUser(_mail, _password);
+                LogSuccess = await _service.LoginUser(_mail, _password);
             }
             catch (Exception exce)
             {
@@ -50,6 +49,8 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
             finally
             {
+                if (!LogSuccess)
+                    await Application.Current.MainPage.DisplayAlert("Login failed", "Incorrect login or password.", "Okay");
                 UserDialogs.Instance.HideLoading();
             }
 
@@ -62,10 +63,6 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Login success", "", "Okay");
                 await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Login failed", "Incorrect login or password.", "Okay");
             }
         }
     }
