@@ -12,6 +12,7 @@ namespace ZwinnyCRUD.Mobile
             InitializeComponent();
 
             DependencyService.Register<RestDataStore>();
+            DependencyService.Register<RestFileStore>();
             DependencyService.Register<AuthenticationService>();
             MainPage = new AppShell();
         }
@@ -20,8 +21,6 @@ namespace ZwinnyCRUD.Mobile
         {
             var datacontext = DependencyService.Get<IDataStore<Project>>();
             await datacontext.GetProjectsAsync(true);
-            var filedatacontext = DependencyService.Get<IFilesDataStore<File>>();
-            await filedatacontext.GetFilesAsync(true);
         }
 
         protected override void OnSleep()

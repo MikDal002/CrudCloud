@@ -12,7 +12,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Project> DataStore => DependencyService.Get<IDataStore<Project>>();
-        public IFilesDataStore<File> FilesDataStore => DependencyService.Get<IFilesDataStore<File>>();
+        public IFileStore<File> FileStore => DependencyService.Get<IFileStore<File>>();
 
         bool isBusy = false;
         public bool IsBusy

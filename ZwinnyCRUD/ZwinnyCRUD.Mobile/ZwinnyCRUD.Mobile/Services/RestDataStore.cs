@@ -15,17 +15,13 @@ namespace ZwinnyCRUD.Mobile.Services
 
         [Post("api/v1.0/Project/")]
         System.Threading.Tasks.Task<ProjectDto> AddNewProject([Body] ProjectDto project);
-
-        [Get("api/v1.0/Project/{id}/files")]
-        Task<IEnumerable<FileDto>> GetAllFilesAsync();
     }
-    public class RestDataStore : IDataStore<Project>, IFilesDataStore<File>
+    public class RestDataStore : IDataStore<Project>
     {
         private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
         // private const string BaseUrl = "http://192.168.0.227:45455/";
         private readonly ZwinnyCrudRestInterface ApiAccess;
         List<Project> _projects = new List<Project>();
-        List<File> _files = new List<File>();
 
         public RestDataStore()
         {
@@ -86,40 +82,6 @@ namespace ZwinnyCRUD.Mobile.Services
                     }).ToList();
             }
             return _projects;
-        }
-
-        public async Task<IEnumerable<File>> GetFilesAsync(bool forceRefresh = false)
-        {
-            if (forceRefresh)
-            {
-                _files.Clear();
-                _files = (await ApiAccess.GetAllFilesAsync())
-                    .Where(d => d.Id != null)
-                    .Select(d => new File()
-                    {
-                        Id = d.Id.Value,
-                        Name = d.Name,
-                        FilePath = d.FilePath,
-                        ProjectId = d.ProjectId
-                    }).ToList();
-
-            }
-            return _files;
-        }
-
-        public Task<bool> AddFileAsync(File item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteFileAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<File> GetFileAsync(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

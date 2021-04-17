@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Views;
+using System.Collections.Generic;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
 {
@@ -14,18 +15,8 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _title;
         private string _description;
         public int Id { get; set; }
-        public ObservableCollection<File> Files { get; }
-        public Command LoadFilesCommand { get; }
-        public Command AddFileCommand { get; }
-        public Command<Project> FileTapped { get; }
-
-        public ProjectDetailViewModel()
-        {
-            Title = "Files";
-            Files = new ObservableCollection<File>();
-            LoadFilesCommand = new Command(async () => await ExecuteLoadFilesCommand());
-        }
-
+        private ObservableCollection<File> _files;
+   
         public string Text
         {
             get => _title;
@@ -48,8 +39,12 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
+        public ObservableCollection<File> Files { get => _files; set => SetProperty(ref _files, value); }
+
         public async void LoadItemId(string projId)
         {
+            Debug.Assert(FileStore != null);
+
             var intId = Int32.Parse(projId);
             try
             {
@@ -57,33 +52,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
                 Id = item.Id;
                 Text = item.Title;
                 Description = item.Description;
+                Files = new ObservableCollection<File>(await FileStore.GetFilesAsync(intId));
             }
             catch (Exception exception)
             {
                 Debug.WriteLine("Failed to load Project because: " + exception.Message);
-            }
-        }
-
-        async System.Threading.Tasks.Task ExecuteLoadFilesCommand()
-        {
-            IsBusy = true;
-
-            try
-            {
-                Files.Clear();
-                var files = await FilesDataStore.GetFilesAsync(true);
-                foreach (var file in files)
-                {
-                    Files.Add(file);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 
