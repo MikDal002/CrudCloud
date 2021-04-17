@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Acr.UserDialogs;
+using Newtonsoft.Json.Linq;
 using RestSharp;
+using System;
 using System.Net;
 using Xamarin.Forms;
+using ZwinnyCRUD.Mobile.Services;
 using ZwinnyCRUD.Mobile.Views;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
@@ -11,6 +14,8 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _mail = string.Empty;
         private string _password = string.Empty;
         private string _confirmPassword = string.Empty;
+
+        private AuthenticationService _service;
 
         public Command RegisterCommand { get; }
 
@@ -33,6 +38,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         public RegisterViewModel()
         {
             RegisterCommand = new Command(OnRegisterClicked);
+            _service = DependencyService.Get<AuthenticationService>();
         }
 
         private async void OnRegisterClicked(object obj)
@@ -48,33 +54,26 @@ namespace ZwinnyCRUD.Mobile.ViewModels
                 return;
             }
 
-            var client = new RestClient("https://zwinnycrudtest.azurewebsites.net/");
-            var request = new RestRequest("api/v1.0/auth/signup", Method.POST);
-
-            request.AddHeader("Accept", "application/json");
-
-            var body = new
+            bool RegisterSuccess = false;
+            try
             {
-                Mail = _mail,
-                Password = _password
-            };
-            request.AddJsonBody(body);
-
-            IRestResponse response = client.Execute(request);
-
-            HttpStatusCode statusCode = response.StatusCode;
-            int numericStatusCode = (int)statusCode;
-
-            var details = JObject.Parse(response.Content);
-
-            if (numericStatusCode == 201)
-            {
-                await Application.Current.MainPage.DisplayAlert("Registration success", response.Content, "Okay", "Cancel");
-                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                UserDialogs.Instance.ShowLoading("Czekaj...");
+                RegisterSuccess = await _service.RegisterUser(_mail, _password);
             }
-            else
+            catch (Exception exce)
             {
-                await Application.Current.MainPage.DisplayAlert("Registration failed", details["detail"].ToString(), "Okay", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Register failed", exce.Message, "Okay");
+            }
+            finally
+            {
+                if (!RegisterSuccess)
+                    await Application.Current.MainPage.DisplayAlert("Register failed", "You must provide correct data", "Okay");
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Registration success", "You can now log in", "Okay");
+                    await Shell.Current.GoToAsync("LoginPage");
+                }
+                UserDialogs.Instance.HideLoading();
             }
         }
     }
