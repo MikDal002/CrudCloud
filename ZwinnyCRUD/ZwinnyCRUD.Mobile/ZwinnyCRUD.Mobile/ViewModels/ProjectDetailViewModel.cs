@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Xamarin.Forms;
+using ZwinnyCRUD.Mobile.Views;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
 {
@@ -11,6 +12,12 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _title;
         private string _description;
         public int Id { get; set; }
+        public Command GoToFilesCommand { get; }
+
+        public ProjectDetailViewModel()
+        {
+            GoToFilesCommand = new Command(OnGoToFiles);
+        }
 
         public string Text
         {
@@ -48,6 +55,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             {
                 Debug.WriteLine("Failed to load Project because: " + exception.Message);
             }
+        }
+
+        private async void OnGoToFiles(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(ProjectFilesPage));
         }
     }
 }

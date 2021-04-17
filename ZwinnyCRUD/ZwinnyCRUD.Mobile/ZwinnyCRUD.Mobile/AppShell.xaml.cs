@@ -32,6 +32,7 @@ namespace ZwinnyCRUD.Mobile
             
             Routing.RegisterRoute(nameof(ProjectDetailPage), typeof(ProjectDetailPage));
             Routing.RegisterRoute(nameof(NewProjectPage), typeof(NewProjectPage));
+            Routing.RegisterRoute(nameof(ProjectFilesPage), typeof(ProjectFilesPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             AuthenticationService.LoggingStatusChanged += AuthenticationService_LoggingStatusChanged;
@@ -45,13 +46,13 @@ namespace ZwinnyCRUD.Mobile
                 Items.Remove(_registerMenuEntry);
                 Items.Remove(_loginMenuEntry);
                 Items.Add(_logoutMenuEntry);
-            }
+        }
             else
             {
                 Items.Add(_registerMenuEntry);
                 Items.Add(_loginMenuEntry);
                 Items.Remove(_logoutMenuEntry);
-            }
-        }
+    }
+}
     }
 }

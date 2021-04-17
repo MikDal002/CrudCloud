@@ -59,7 +59,12 @@ namespace ZwinnyCRUD.Cloud.Api
             return _taskDatabase.FindAll(m => (m.ProjectId.Equals(Project.Id))).ToList();
         }
 
-        [HttpGet("{id}/files/")]
+        /// <summary>
+        /// Zwraca wszystkie pliki danego projektu
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/{id}/files/")]
         public async Task<ActionResult<List<ZwinnyCRUD.Common.Models.File>>> GetFiles([Required] int id)
         {
             var Project = await _projectDatabase.FindOrDefault(id);
