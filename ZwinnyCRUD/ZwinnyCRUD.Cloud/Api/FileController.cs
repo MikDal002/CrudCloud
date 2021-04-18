@@ -25,6 +25,11 @@ namespace ZwinnyCRUD.Cloud.Api
             _projectDatabase = projectDatabase;
         }
 
+        /// <summary>
+        /// Pobiera plik z podanej sciezki
+        /// </summary>
+        /// <param name="FilePath"></param>
+        /// <returns></returns>
         [HttpGet("")]
         public ActionResult GetDownload([Required] string FilePath)
         {
@@ -32,6 +37,11 @@ namespace ZwinnyCRUD.Cloud.Api
             return PhysicalFile(FilePath, MediaTypeNames.Application.Octet);
         }
 
+        /// <summary>
+        /// Usuwa plik o podanym ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("")]
         public async Task<ActionResult> Delete([Required] int id)
         {
@@ -39,6 +49,12 @@ namespace ZwinnyCRUD.Cloud.Api
             return deletedFile == null ? (StatusCodeResult)NotFound() : NoContent();
         }
 
+        /// <summary>
+        /// Przesyła plik i przypisuje go do projektu o podanym ID
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost("")]
         public async Task<ActionResult> UploadFile([FromForm] IFormFile file, int id)
         {

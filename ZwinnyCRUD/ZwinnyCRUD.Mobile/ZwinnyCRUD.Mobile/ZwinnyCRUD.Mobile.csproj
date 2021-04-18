@@ -30,15 +30,6 @@
     <Compile Update="Views\ProjectDetailPage.xaml.cs">
       <DependentUpon>ProjectDetailPage.xaml</DependentUpon>
     </Compile>
-	<Compile Update="Views\ProjectFilesPage.xaml.cs">
-		<DependentUpon>ProjectFilesPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Views\ProjectFilesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

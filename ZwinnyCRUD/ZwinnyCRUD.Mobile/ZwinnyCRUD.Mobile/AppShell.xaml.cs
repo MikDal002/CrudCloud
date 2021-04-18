@@ -32,7 +32,6 @@ namespace ZwinnyCRUD.Mobile
             
             Routing.RegisterRoute(nameof(ProjectDetailPage), typeof(ProjectDetailPage));
             Routing.RegisterRoute(nameof(NewProjectPage), typeof(NewProjectPage));
-            Routing.RegisterRoute(nameof(ProjectFilesPage), typeof(ProjectFilesPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             AuthenticationService.LoggingStatusChanged += AuthenticationService_LoggingStatusChanged;

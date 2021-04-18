@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Xamarin.Forms;
+using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Views;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
@@ -12,11 +14,16 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _title;
         private string _description;
         public int Id { get; set; }
-        public Command GoToFilesCommand { get; }
+        public ObservableCollection<File> Files { get; }
+        public Command LoadFilesCommand { get; }
+        public Command AddFileCommand { get; }
+        public Command<Project> FileTapped { get; }
 
         public ProjectDetailViewModel()
         {
-            GoToFilesCommand = new Command(OnGoToFiles);
+            Title = "Files";
+            Files = new ObservableCollection<File>();
+            LoadFilesCommand = new Command(async () => await ExecuteLoadFilesCommand());
         }
 
         public string Text
@@ -57,9 +64,32 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
-        private async void OnGoToFiles(object obj)
+        async System.Threading.Tasks.Task ExecuteLoadFilesCommand()
         {
-            await Shell.Current.GoToAsync(nameof(ProjectFilesPage));
+            IsBusy = true;
+
+            try
+            {
+                Files.Clear();
+                var files = await FilesDataStore.GetFilesAsync(true);
+                foreach (var file in files)
+                {
+                    Files.Add(file);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public void OnAppearing()
+        {
+            IsBusy = true;
         }
     }
 }
