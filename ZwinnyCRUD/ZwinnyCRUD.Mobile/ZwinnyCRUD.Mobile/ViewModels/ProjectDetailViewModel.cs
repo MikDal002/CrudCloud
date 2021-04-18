@@ -11,12 +11,21 @@ namespace ZwinnyCRUD.Mobile.ViewModels
     [QueryProperty(nameof(ProjectId), nameof(ProjectId))]
     public class ProjectDetailViewModel : BaseViewModel
     {
+        public ProjectDetailViewModel()
+        {
+            FileTapped = new Command<File>(OnFileSelected);
+        }
+
         private string _itemId;
         private string _title;
         private string _description;
         public int Id { get; set; }
         private ObservableCollection<File> _files;
-   
+        private File _selectedFile;
+
+        public Command<File> FileTapped { get; }
+
+
         public string Text
         {
             get => _title;
@@ -38,7 +47,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
                 LoadItemId(value);
             }
         }
-
+       
         public ObservableCollection<File> Files { get => _files; set => SetProperty(ref _files, value); }
 
         public async void LoadItemId(string projId)
@@ -60,9 +69,36 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
+        public File SelectedFile
+        {
+            get => _selectedFile;
+            set
+            {
+                SetProperty(ref _selectedFile, value);
+                OnFileSelected(value);
+            }
+        }
+
+        async void OnFileSelected(File File)
+        {
+            if (File == null)
+                return;
+
+            var intId = File.Id;            
+            await FileStore.DeleteFileAsync(intId);
+            Files.Remove(File);
+            return;
+        }
+
+        /*private async void OnDelete(object obj)
+        {
+            await FileStore.DeleteFileAsync(_selectedFile.Id);
+        }*/
+
         public void OnAppearing()
         {
             IsBusy = true;
+            _selectedFile = null;
         }
     }
 }

@@ -15,10 +15,10 @@ namespace ZwinnyCRUD.Mobile.Services
         Task<IEnumerable<FileDto>> GetFilesAsync([Path] int project_id);
 
         /*[Get("api/v1.0/File/")]
-        Task<FileDto> GetFileAsync([Path] string FilePath);
+        Task<FileDto> GetFileAsync([Path] string FilePath);*/
 
         [Delete("api/v1.0/File/")]
-        Task<FileDto> DeleteFileAsync(int id);*/
+        Task<FileDto> DeleteFileAsync(int id);
     }
     public class RestFileStore : IFileStore<Common.Models.File>
     {
@@ -42,12 +42,13 @@ namespace ZwinnyCRUD.Mobile.Services
             return _files;
         }
 
-        /*public Task<bool> DeleteFileAsync(int id)
-        {
-            throw new NotImplementedException();
+        public async Task<bool> DeleteFileAsync(int id)
+        {           
+            await ApiAccess.DeleteFileAsync(id);
+            return true;
         }
 
-        public Task<File> GetFileAsync(int id)
+        /*public Task<File> GetFileAsync(int id)
         {
             throw new NotImplementedException();
         }*/

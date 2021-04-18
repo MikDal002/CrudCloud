@@ -4,7 +4,8 @@
              x:Class="ZwinnyCRUD.Mobile.Views.ProjectDetailPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:ZwinnyCRUD.Mobile.ViewModels"  
-             xmlns:model="clr-namespace:ZwinnyCRUD.Common.Models;assembly=ZwinnyCRUD.Common">
+             xmlns:model="clr-namespace:ZwinnyCRUD.Common.Models;assembly=ZwinnyCRUD.Common"
+             x:Name="ProjectDetail">
 
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Text:" FontSize="Medium" />
@@ -16,11 +17,24 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <!--<ViewCell.ContextActions>
+                            <MenuItem
+                                Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference ProjectDetail}}"
+                                CommandParameter="{Binding .}"
+                                Text="Delete" IsDestructive="True"/>
+                        </ViewCell.ContextActions>-->
                         <StackLayout Padding="0">
                             <Label Text="{Binding Name}"
                                    LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListItemTextStyle}"
-                                   FontSize="16" />                            
+                                   FontSize="16" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProjectDetailViewModel}}, Path=FileTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
