@@ -16,13 +16,7 @@
         <ListView x:Name="Files" ItemsSource="{Binding Files}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <!--<ViewCell.ContextActions>
-                            <MenuItem
-                                Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference ProjectDetail}}"
-                                CommandParameter="{Binding .}"
-                                Text="Delete" IsDestructive="True"/>
-                        </ViewCell.ContextActions>-->
+                    <ViewCell>                        
                         <StackLayout Padding="0">
                             <Label Text="{Binding Name}"
                                    LineBreakMode="NoWrap"
@@ -31,7 +25,12 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProjectDetailViewModel}}, Path=FileTapped}"		
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProjectDetailViewModel}}, Path=FileTappedOnce}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="2"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProjectDetailViewModel}}, Path=FileTappedTwice}"		
                                 CommandParameter="{Binding .}">
                                 </TapGestureRecognizer>
                              </StackLayout.GestureRecognizers>

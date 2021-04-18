@@ -14,8 +14,8 @@ namespace ZwinnyCRUD.Mobile.Services
         [Get("api/v1.0/Project/{project_id}/files")]
         Task<IEnumerable<FileDto>> GetFilesAsync([Path] int project_id);
 
-        /*[Get("api/v1.0/File/")]
-        Task<FileDto> GetFileAsync([Path] string FilePath);*/
+        [Get("api/v1.0/File/")]
+        Task<File> GetFileAsync([Path] string FilePath);
 
         [Delete("api/v1.0/File/")]
         Task<FileDto> DeleteFileAsync(int id);
@@ -24,6 +24,7 @@ namespace ZwinnyCRUD.Mobile.Services
     {
         private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
         private readonly ZwinnyCrudRestFileInterface ApiAccess;
+        List<Common.Models.File> _files = new List<Common.Models.File>();
 
         public RestFileStore()
         {
@@ -37,6 +38,7 @@ namespace ZwinnyCRUD.Mobile.Services
                 {
                     Id = d.Id.Value,
                     Name = d.Name,
+                    FilePath = d.FilePath
                 }).ToList();
             
             return _files;
@@ -48,9 +50,10 @@ namespace ZwinnyCRUD.Mobile.Services
             return true;
         }
 
-        /*public Task<File> GetFileAsync(int id)
+        public async Task<File> GetFileAsync(string FilePath)
         {
-            throw new NotImplementedException();
-        }*/
+            return await System.Threading.Tasks.Task.FromResult(_files.FirstOrDefault(s => s.FilePath == FilePath));
+            //return await ApiAccess.GetFileAsync(FilePath);
+        }
     }
 }

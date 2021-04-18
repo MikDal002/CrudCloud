@@ -13,7 +13,8 @@ namespace ZwinnyCRUD.Mobile.ViewModels
     {
         public ProjectDetailViewModel()
         {
-            FileTapped = new Command<File>(OnFileSelected);
+            FileTappedOnce = new Command<File>(OnFileTappedOnce);
+            FileTappedTwice = new Command<File>(OnFileTappedTwice);
         }
 
         private string _itemId;
@@ -21,9 +22,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private string _description;
         public int Id { get; set; }
         private ObservableCollection<File> _files;
-        private File _selectedFile;
+        private File _fileTappedOnce;
+        private File _fileTappedTwice;
 
-        public Command<File> FileTapped { get; }
+        public Command<File> FileTappedOnce { get; }
+        public Command<File> FileTappedTwice { get; }
 
 
         public string Text
@@ -69,17 +72,37 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
-        public File SelectedFile
+        public File FileToDownload
         {
-            get => _selectedFile;
+            get => _fileTappedOnce;
             set
             {
-                SetProperty(ref _selectedFile, value);
-                OnFileSelected(value);
+                SetProperty(ref _fileTappedOnce, value);
+                OnFileTappedOnce(value);
             }
         }
 
-        async void OnFileSelected(File File)
+        public File FileToDelete
+        {
+            get => _fileTappedTwice;
+            set
+            {
+                SetProperty(ref _fileTappedTwice, value);
+                OnFileTappedTwice(value);
+            }
+        }
+
+        async void OnFileTappedOnce(File File)
+        {
+            if (File == null)
+                return;
+
+            var filePath = File.FilePath;
+            await FileStore.GetFileAsync(filePath);
+            return;
+        }
+
+        async void OnFileTappedTwice(File File)
         {
             if (File == null)
                 return;
@@ -89,16 +112,12 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             Files.Remove(File);
             return;
         }
-
-        /*private async void OnDelete(object obj)
-        {
-            await FileStore.DeleteFileAsync(_selectedFile.Id);
-        }*/
-
+   
         public void OnAppearing()
         {
             IsBusy = true;
-            _selectedFile = null;
+            _fileTappedOnce = null;
+            _fileTappedTwice = null;
         }
     }
 }
