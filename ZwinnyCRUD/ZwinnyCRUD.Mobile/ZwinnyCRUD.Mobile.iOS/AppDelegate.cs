@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Plugin.DownloadManager;
 using UIKit;
 
 namespace ZwinnyCRUD.Mobile.iOS
@@ -27,6 +28,12 @@ namespace ZwinnyCRUD.Mobile.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+
+        public override void HandleEventsForBackgroundUrl(UIApplication application, string sessionIdentifier, Action completionHandler)
+        {
+            CrossDownloadManager.BackgroundSessionCompletionHandler = completionHandler;
         }
     }
 }

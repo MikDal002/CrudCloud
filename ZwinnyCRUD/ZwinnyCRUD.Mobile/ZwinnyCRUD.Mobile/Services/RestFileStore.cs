@@ -14,9 +14,6 @@ namespace ZwinnyCRUD.Mobile.Services
         [Get("api/v1.0/Project/{project_id}/files")]
         Task<IEnumerable<FileDto>> GetFilesAsync([Path] int project_id);
 
-        [Get("api/v1.0/File/")]
-        Task<File> GetFileAsync([Query] string FilePath);
-
         [Delete("api/v1.0/File/")]
         Task<FileDto> DeleteFileAsync(int id);
     }
@@ -49,12 +46,6 @@ namespace ZwinnyCRUD.Mobile.Services
         {           
             await ApiAccess.DeleteFileAsync(id);
             return true;
-        }
-
-        public async Task<File> GetFileAsync(string FilePath)
-        {
-            return await System.Threading.Tasks.Task.FromResult(_files.FirstOrDefault(s => s.FilePath == FilePath));
-            //return await ApiAccess.GetFileAsync(FilePath);
         }
     }
 }

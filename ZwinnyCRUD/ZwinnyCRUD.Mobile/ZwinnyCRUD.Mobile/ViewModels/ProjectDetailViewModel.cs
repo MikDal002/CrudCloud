@@ -5,6 +5,9 @@ using Xamarin.Forms;
 using ZwinnyCRUD.Common.Models;
 using ZwinnyCRUD.Mobile.Views;
 using System.Collections.Generic;
+using Xamarin.Essentials;
+using Plugin.DownloadManager;
+using System.IO;
 
 namespace ZwinnyCRUD.Mobile.ViewModels
 {
@@ -13,21 +16,21 @@ namespace ZwinnyCRUD.Mobile.ViewModels
     {
         public ProjectDetailViewModel()
         {
-            FileTappedOnce = new Command<File>(OnFileTappedOnce);
-            FileTappedTwice = new Command<File>(OnFileTappedTwice);
+            FileTappedOnce = new Command<ZwinnyCRUD.Common.Models.File>(OnFileTappedOnce);
+            FileTappedTwice = new Command<ZwinnyCRUD.Common.Models.File>(OnFileTappedTwice);
         }
 
         private string _itemId;
         private string _title;
         private string _description;
         public int Id { get; set; }
-        private ObservableCollection<File> _files;
-        private File _fileTappedOnce;
-        private File _fileTappedTwice;
+        private ObservableCollection<ZwinnyCRUD.Common.Models.File> _files;
+        private ZwinnyCRUD.Common.Models.File _fileTappedOnce;
+        private ZwinnyCRUD.Common.Models.File _fileTappedTwice;
 
-        public Command<File> FileTappedOnce { get; }
-        public Command<File> FileTappedTwice { get; }
-
+        public Command<ZwinnyCRUD.Common.Models.File> FileTappedOnce { get; }
+        public Command<ZwinnyCRUD.Common.Models.File> FileTappedTwice { get; }
+        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
 
         public string Text
         {
@@ -51,7 +54,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
        
-        public ObservableCollection<File> Files { get => _files; set => SetProperty(ref _files, value); }
+        public ObservableCollection<ZwinnyCRUD.Common.Models.File> Files { get => _files; set => SetProperty(ref _files, value); }
 
         public async void LoadItemId(string projId)
         {
@@ -64,7 +67,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
                 Id = item.Id;
                 Text = item.Title;
                 Description = item.Description;
-                Files = new ObservableCollection<File>(await FileStore.GetFilesAsync(intId));
+                Files = new ObservableCollection<ZwinnyCRUD.Common.Models.File>(await FileStore.GetFilesAsync(intId));
             }
             catch (Exception exception)
             {
@@ -72,7 +75,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
-        public File FileToDownload
+        public ZwinnyCRUD.Common.Models.File FileToDownload
         {
             get => _fileTappedOnce;
             set
@@ -82,7 +85,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
-        public File FileToDelete
+        public ZwinnyCRUD.Common.Models.File FileToDelete
         {
             get => _fileTappedTwice;
             set
@@ -92,17 +95,18 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
-        async void OnFileTappedOnce(File File)
+        public void OnFileTappedOnce(ZwinnyCRUD.Common.Models.File File)
         {
             if (File == null)
                 return;
 
-            var filePath = File.FilePath;
-            await FileStore.GetFileAsync(filePath);
-            return;
+            string url = $"{BaseUrl}api/v1.0/File?FilePath={File.FilePath}";
+            var downloadManager = CrossDownloadManager.Current;
+            var file = downloadManager.CreateDownloadFile(url);
+            downloadManager.Start(file);
         }
 
-        async void OnFileTappedTwice(File File)
+        async void OnFileTappedTwice(ZwinnyCRUD.Common.Models.File File)
         {
             if (File == null)
                 return;

@@ -7,6 +7,10 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Acr.UserDialogs;
+using Plugin.DownloadManager;
+using Plugin.DownloadManager.Abstractions;
+using System.Linq;
+using System.IO;
 
 namespace ZwinnyCRUD.Mobile.Droid
 {
@@ -20,6 +24,7 @@ namespace ZwinnyCRUD.Mobile.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            Downloaded();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -30,6 +35,17 @@ namespace ZwinnyCRUD.Mobile.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public void Downloaded()
+        {
+            CrossDownloadManager.Current.PathNameForDownloadedFile =
+                new Func<IDownloadFile, string>(file =>
+                {
+                    string[] fileName = file.Url.Split("\\");
+                    return System.IO.Path.Combine(ApplicationContext.GetExternalFilesDir(
+                        Android.OS.Environment.DirectoryDownloads).AbsolutePath, fileName[6]);
+                });
         }
     }
 }
