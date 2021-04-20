@@ -12,16 +12,18 @@
         <Label Text="{Binding Text}" FontSize="Small"/>
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
+        <Label Text="Files:" FontSize="Medium" />
         
         <ListView x:Name="Files" ItemsSource="{Binding Files}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>                        
-                        <StackLayout Padding="0">
+                        <StackLayout Padding="0">                            
                             <Label Text="{Binding Name}"
                                    LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListItemTextStyle}"
-                                   FontSize="16" />
+                                   FontSize="14" />
+                            <Label Text="Tap once to download, twice to delete" FontSize="8" FontAttributes="Italic" />
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"

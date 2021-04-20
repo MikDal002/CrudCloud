@@ -15,11 +15,12 @@ namespace ZwinnyCRUD.Mobile.Services
         Task<IEnumerable<FileDto>> GetFilesAsync([Path] int project_id);
 
         [Get("api/v1.0/File/")]
-        Task<File> GetFileAsync([Path] string FilePath);
+        Task<File> GetFileAsync([Query] string FilePath);
 
         [Delete("api/v1.0/File/")]
         Task<FileDto> DeleteFileAsync(int id);
     }
+
     public class RestFileStore : IFileStore<Common.Models.File>
     {
         private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
