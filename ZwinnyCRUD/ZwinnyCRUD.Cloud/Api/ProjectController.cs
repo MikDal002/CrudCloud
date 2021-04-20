@@ -64,7 +64,7 @@ namespace ZwinnyCRUD.Cloud.Api
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("/{id}/files/")]
+        [HttpGet("{id}/files/")]
         public async Task<ActionResult<List<ZwinnyCRUD.Common.Models.File>>> GetFiles([Required] int id)
         {
             var Project = await _projectDatabase.FindOrDefault(id);
