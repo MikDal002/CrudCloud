@@ -14,6 +14,7 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         public ObservableCollection<Project> Projects { get; }
         public Command LoadProjectsCommand { get; }
         public Command AddProjectCommand { get; }
+        public Command AddImageCommand { get; }
         public Command<Project> ProjectTapped { get; }
 
         public ProjectsViewModel()
@@ -25,6 +26,8 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             ProjectTapped = new Command<Project>(OnProjectSelected);
 
             AddProjectCommand = new Command(OnAddProject);
+
+            AddImageCommand = new Command(OnAddImage);
         }
 
         async System.Threading.Tasks.Task ExecuteLoadProjectsCommand()
@@ -69,6 +72,11 @@ namespace ZwinnyCRUD.Mobile.ViewModels
         private async void OnAddProject(object obj)
         {
             await Shell.Current.GoToAsync(nameof(NewProjectPage));
+        }
+
+        private async void OnAddImage(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(FirebasePage));
         }
 
         async void OnProjectSelected(Project Project)
