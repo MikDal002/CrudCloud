@@ -50,7 +50,7 @@ namespace ZwinnyCRUD.Mobile.Views
 
         public async Task<string> StoreImages(Stream imageStream)
         {
-            var storageImage = await new FirebaseStorage("xamarinfirebase-1f448.appspot.com")
+            var storageImage = await new FirebaseStorage("zwinnycrud.appspot.com")
                 .Child("ZwinnyCRUD")
                 .Child($"{Path.GetFileNameWithoutExtension(Path.GetRandomFileName())}.jpg")
                 .PutAsync(imageStream);
