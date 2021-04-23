@@ -53,27 +53,6 @@ namespace ZwinnyCRUD.Mobile.ViewModels
                 LoadItemId(value);
             }
         }
-       
-        public ObservableCollection<ZwinnyCRUD.Common.Models.File> Files { get => _files; set => SetProperty(ref _files, value); }
-
-        public async void LoadItemId(string projId)
-        {
-            Debug.Assert(FileStore != null);
-
-            var intId = Int32.Parse(projId);
-            try
-            {
-                var item = await DataStore.GetProjectAsync(intId);
-                Id = item.Id;
-                Text = item.Title;
-                Description = item.Description;
-                Files = new ObservableCollection<ZwinnyCRUD.Common.Models.File>(await FileStore.GetFilesAsync(intId));
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine("Failed to load Project because: " + exception.Message);
-            }
-        }
 
         public ZwinnyCRUD.Common.Models.File FileToDownload
         {
@@ -95,6 +74,32 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             }
         }
 
+        public void OnAppearing()
+        {
+            IsBusy = true;
+        }
+
+        public ObservableCollection<ZwinnyCRUD.Common.Models.File> Files { get => _files; set => SetProperty(ref _files, value); }
+
+        public async void LoadItemId(string projId)
+        {
+            Debug.Assert(FileStore != null);
+
+            var intId = Int32.Parse(projId);
+            try
+            {
+                var item = await DataStore.GetProjectAsync(intId);
+                Id = item.Id;
+                Text = item.Title;
+                Description = item.Description;
+                Files = new ObservableCollection<ZwinnyCRUD.Common.Models.File>(await FileStore.GetFilesAsync(intId));
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine("Failed to load Project because: " + exception.Message);
+            }
+        }              
+
         public void OnFileTappedOnce(ZwinnyCRUD.Common.Models.File File)
         {
             if (File == null)
@@ -115,13 +120,6 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             await FileStore.DeleteFileAsync(intId);
             Files.Remove(File);
             return;
-        }
-   
-        public void OnAppearing()
-        {
-            IsBusy = true;
-            _fileTappedOnce = null;
-            _fileTappedTwice = null;
-        }
+        }          
     }
 }
