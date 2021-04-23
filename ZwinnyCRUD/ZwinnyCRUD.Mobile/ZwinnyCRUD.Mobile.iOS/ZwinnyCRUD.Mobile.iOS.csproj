@@ -132,6 +132,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FirebaseStorage.net">
+      <Version>1.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.1.0.475</Version>
     </PackageReference>
