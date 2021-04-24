@@ -19,18 +19,16 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             FileTappedOnce = new Command<ZwinnyCRUD.Common.Models.File>(OnFileTappedOnce);
             FileTappedTwice = new Command<ZwinnyCRUD.Common.Models.File>(OnFileTappedTwice);
         }
-
+        
+        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
         private string _itemId;
         private string _title;
-        private string _description;
-        public int Id { get; set; }
+        private string _description;      
         private ObservableCollection<ZwinnyCRUD.Common.Models.File> _files;
-        private ZwinnyCRUD.Common.Models.File _fileTappedOnce;
-        private ZwinnyCRUD.Common.Models.File _fileTappedTwice;
 
         public Command<ZwinnyCRUD.Common.Models.File> FileTappedOnce { get; }
         public Command<ZwinnyCRUD.Common.Models.File> FileTappedTwice { get; }
-        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
+        public int Id { get; set; }
 
         public string Text
         {
@@ -51,26 +49,6 @@ namespace ZwinnyCRUD.Mobile.ViewModels
             {
                 _itemId = value;
                 LoadItemId(value);
-            }
-        }
-
-        public ZwinnyCRUD.Common.Models.File FileToDownload
-        {
-            get => _fileTappedOnce;
-            set
-            {
-                SetProperty(ref _fileTappedOnce, value);
-                OnFileTappedOnce(value);
-            }
-        }
-
-        public ZwinnyCRUD.Common.Models.File FileToDelete
-        {
-            get => _fileTappedTwice;
-            set
-            {
-                SetProperty(ref _fileTappedTwice, value);
-                OnFileTappedTwice(value);
             }
         }
 
