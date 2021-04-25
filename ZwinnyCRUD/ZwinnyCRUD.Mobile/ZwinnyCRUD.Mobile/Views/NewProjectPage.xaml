@@ -2,8 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ZwinnyCRUD.Mobile.Views.NewProjectPage"
-             Shell.PresentationMode="ModalAnimated"
+             xmlns:local="clr-namespace:ZwinnyCRUD.Mobile.ViewModels"
+             Shell.PresentationMode="Animated" x:DataType="{x:Type local:NewProjectViewModel}"
              Title="New Item">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="From Fb" Command="{Binding AddProjectsFromFirebase}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
             <Label Text="Text" FontSize="Medium" />
