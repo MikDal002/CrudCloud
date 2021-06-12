@@ -27,7 +27,7 @@ namespace ZwinnyCRUD.Mobile.Services
                 throw new ArgumentException($"'{nameof(password)}' cannot be null or empty", nameof(password));
             }
 
-            var client = new RestClient("https://zwinnycrudtest.azurewebsites.net/");
+            var client = new RestClient("https://zwinnycrudcloud.azurewebsites.net/");
             var request = new RestRequest("api/v1.0/auth/signin", Method.POST);
 
             var body = new
