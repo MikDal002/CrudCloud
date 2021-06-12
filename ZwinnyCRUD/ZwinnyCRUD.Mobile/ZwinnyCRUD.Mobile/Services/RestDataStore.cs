@@ -18,7 +18,7 @@ namespace ZwinnyCRUD.Mobile.Services
     }
     public class RestDataStore : IDataStore<Project>
     {
-        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
+        private const string BaseUrl = "https://zwinnycrudcloud.azurewebsites.net/";
         // private const string BaseUrl = "http://192.168.0.227:45455/";
         private readonly ZwinnyCrudRestInterface ApiAccess;
         List<Project> _projects = new List<Project>();

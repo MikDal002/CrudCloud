@@ -20,7 +20,7 @@ namespace ZwinnyCRUD.Mobile.Services
 
     public class RestFileStore : IFileStore<Common.Models.File>
     {
-        private const string BaseUrl = "https://zwinnycrudtest.azurewebsites.net/";
+        private const string BaseUrl = "https://zwinnycrudcloud.azurewebsites.net/";
         private readonly ZwinnyCrudRestFileInterface ApiAccess;
         List<Common.Models.File> _files = new List<Common.Models.File>();
 
